@@ -1,0 +1,17 @@
+{
+  "name": "kim-branzell-fse",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.2.16",
+  "scripts": {
+    "dev": "bunx --bun vite build --watch",
+    "build": "bunx --bun vite build",
+    "preview": "bunx --bun vite preview",
+    "clean": "rm -rf assets/dist/*"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.100.0",
+    "vite": "^8.0.16"
+  }
+}

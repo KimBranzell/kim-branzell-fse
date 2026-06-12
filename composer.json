@@ -1,0 +1,25 @@
+{
+  "name": "kimbranzell/kim-branzell-fse",
+  "description": "Kim Branzell's Full Site Editing WordPress Theme",
+  "type": "wordpress-theme",
+  "license": "GPL-2.0-or-later",
+  "require": {},
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpcsstandards/phpcsutils": "^1.1",
+    "phpcsstandards/phpcsextra": "^1.2",
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "lint:php": "phpcs",
+    "lint:php:changed": "phpcs --cache",
+    "fix:php": "phpcbf"
+  }
+}
