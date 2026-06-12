@@ -1,0 +1,14 @@
+@use '@scss/base/tokens' as *;
+@use '@scss/base/mixins' as *;
+
+:root {
+
+}
+
+body {
+}
+
+button:focus-visible,
+a:focus-visible {
+  @include focus-ring;
+}

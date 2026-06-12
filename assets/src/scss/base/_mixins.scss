@@ -1,0 +1,4 @@
+@mixin focus-ring {
+  outline: 2px solid color-mix(in srgb, var(--theme-primary) 70%, white);
+  outline-offset: 2px;
+}
