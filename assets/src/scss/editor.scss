@@ -1,1 +1,7 @@
 @use '@scss/base/tokens' as *;
+
+.component-color-indicator,
+.block-editor-color-gradient-control,
+.components-circular-option-picker__option {
+	color-scheme: light dark;
+}

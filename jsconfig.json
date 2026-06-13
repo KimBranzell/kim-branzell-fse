@@ -5,6 +5,7 @@
       "@/*": ["assets/src/*"],
       "@js/*": ["assets/src/js/*"],
       "@scss/*": ["assets/src/scss/*"],
+      "@fonts/*": ["assets/src/fonts/*"],
       "@components/*": ["assets/src/scss/components/*"],
       "@base/*": ["assets/src/scss/base/*"]
     }

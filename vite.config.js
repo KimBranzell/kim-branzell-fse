@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import { browserslistToTargets } from 'lightningcss';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 
 const r = (path) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -12,7 +12,6 @@ function themeJsonTokens() {
       const theme = JSON.parse(
         readFileSync('./theme.json', 'utf-8')
       );
-      // Generate tokens from theme.json settings
       const tokens = [];
       // Spacing scale
       if (theme.settings?.spacing?.spacingScale) {
@@ -27,6 +26,12 @@ function themeJsonTokens() {
           tokens.push(`$color-${c.slug}: var(--wp--preset--color--${c.slug});`);
         }
       }
+      // Font families
+      if (theme.settings?.typography?.fontFamilies) {
+        for (const f of theme.settings.typography.fontFamilies) {
+          tokens.push(`$font-${f.slug}: var(--wp--preset--font-family--${f.slug});`);
+        }
+      }
       // Write to _tokens.scss dynamically
       writeFileSync('./assets/src/scss/base/_tokens.scss', tokens.join('\n'));
     }
@@ -35,11 +40,13 @@ function themeJsonTokens() {
 
 export default defineConfig({
   base: './',
+  plugins: [themeJsonTokens()],
   resolve: {
     alias: {
       '@': r('./assets/src'),
       '@js': r('./assets/src/js'),
       '@scss': r('./assets/src/scss'),
+      '@fonts': r('./assets/src/fonts'),
       '@components': r('./assets/src/scss/components'),
       '@base': r('./assets/src/scss/base')
     }

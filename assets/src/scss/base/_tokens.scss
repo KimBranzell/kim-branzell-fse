@@ -1,1 +1,16 @@
+$spacing-0: var(--wp--preset--spacing--0);
+$spacing-1: var(--wp--preset--spacing--1);
+$spacing-2: var(--wp--preset--spacing--2);
+$spacing-3: var(--wp--preset--spacing--3);
+$spacing-4: var(--wp--preset--spacing--4);
+$spacing-5: var(--wp--preset--spacing--5);
+$spacing-6: var(--wp--preset--spacing--6);
+$spacing-7: var(--wp--preset--spacing--7);
+$color-base: var(--wp--preset--color--base);
+$font-atkinson-hyperlegible: var(--wp--preset--font-family--atkinson-hyperlegible);
+$font-inter: var(--wp--preset--font-family--inter);
+$font-system-sans: var(--wp--preset--font-family--system-sans);
 
+[hidden] {
+  display: none !important;
+}

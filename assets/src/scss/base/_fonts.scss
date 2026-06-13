@@ -1,0 +1,118 @@
+// Atkinson Hyperlegible Next Variable Font
+// Latin subset only, weight range 100-900
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('fonts/AtkinsonHyperlegibleNext-VF.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, // Basic Latin + Latin-1 Supplement
+    U+0131, // Latin Extended (İ)
+    U+0152-0153, // Latin Extended (Œ, œ)
+    U+02BB-02BC, // Spacing Modifier Letters
+    U+02C6, // Spacing Modifier (ˆ)
+    U+02DA, // Spacing Modifier (˚)
+    U+02DC, // Spacing Modifier (˜)
+    U+0304, // Combining Diacritical Marks
+    U+0308,
+    U+0329,
+    U+2000-206F, // General Punctuation
+    U+20AC, // Euro Sign
+    U+2122, // Trade Mark Sign
+    U+2191, // Arrow (↑)
+    U+2193, // Arrow (↓)
+    U+2212, // Minus Sign
+    U+2215, // Division Slash
+    U+FEFF, // BOM
+    U+FFFD; // Replacement Character
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('fonts/AtkinsonHyperlegibleNext-Italic-VF.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF,
+    U+0131,
+    U+0152-0153,
+    U+02BB-02BC,
+    U+02C6,
+    U+02DA,
+    U+02DC,
+    U+0304,
+    U+0308,
+    U+0329,
+    U+2000-206F,
+    U+20AC,
+    U+2122,
+    U+2191,
+    U+2193,
+    U+2212,
+    U+2215,
+    U+FEFF,
+    U+FFFD;
+}
+
+// Inter Variable Font
+// Latin subset only, weight range 100-900
+// With accessibility-optimized character variants
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('fonts/InterVariable.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF,
+    U+0131,
+    U+0152-0153,
+    U+02BB-02BC,
+    U+02C6,
+    U+02DA,
+    U+02DC,
+    U+0304,
+    U+0308,
+    U+0329,
+    U+2000-206F,
+    U+20AC,
+    U+2122,
+    U+2191,
+    U+2193,
+    U+2212,
+    U+2215,
+    U+FEFF,
+    U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fonts/InterVariable-Italic.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF,
+    U+0131,
+    U+0152-0153,
+    U+02BB-02BC,
+    U+02C6,
+    U+02DA,
+    U+02DC,
+    U+0304,
+    U+0308,
+    U+0329,
+    U+2000-206F,
+    U+20AC,
+    U+2122,
+    U+2191,
+    U+2193,
+    U+2212,
+    U+2215,
+    U+FEFF,
+    U+FFFD;
+}

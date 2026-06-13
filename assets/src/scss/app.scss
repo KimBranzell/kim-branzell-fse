@@ -1,5 +1,37 @@
 @use '@scss/base/tokens' as *;
 @use '@scss/base/mixins' as *;
+@use '@scss/base/fonts';
+
+:where(html) {
+    hanging-punctuation: first allow-end last;
+    interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  a:where([href]) {
+    --anchor-underline-color: oklch(from var(--wp--preset--color--links) l c h / .5);
+    --anchor-underline-offset: .1em;
+    --anchor-underline-thickness: 1px;
+    color: oklch(var(--wp--preset--color--links));
+    text-decoration: underline;
+    text-decoration-color: currentcolor;
+    text-decoration-thickness: auto;
+    text-decoration-color: var(--wp--preset--color--links);
+    text-decoration-thickness: var(--anchor-underline-thickness);
+    text-decoration-skip-ink: auto;
+    text-underline-offset: var(--anchor-underline-offset);
+  }
+  a:where([href]):hover,
+  a:where([href]):focus-visible {
+    text-decoration: none;
+  }
+}
 
 :root {
 
