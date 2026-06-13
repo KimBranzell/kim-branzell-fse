@@ -14,17 +14,17 @@
         {
           "slug": "base",
           "name": "Base",
-          "color": "light-dark(#F3F4F5, #100C08)"
+          "color": "light-dark(#EAE1D5, #031112)"
         },
         {
           "slug": "text",
           "name": "Text",
-          "color": "light-dark(#100C08, #F3F4F5)"
+          "color": "light-dark(#031112, #FDFBF7)"
         },
         {
           "slug": "links",
           "name": "Links",
-          "color": "light-dark(#BF1839, #CC7400)"
+          "color": "light-dark(#AF314D, #2EA33E)"
         }
       ]
     },

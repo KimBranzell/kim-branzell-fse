@@ -6,7 +6,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('fonts/AtkinsonHyperlegibleNext-VF.woff2') format('woff2');
+  src: url('../../fonts/AtkinsonHyperlegibleNext-VF.woff2') format('woff2');
   unicode-range:
     U+0000-00FF, // Basic Latin + Latin-1 Supplement
     U+0131, // Latin Extended (İ)
@@ -34,7 +34,7 @@
   font-style: italic;
   font-display: swap;
   font-weight: 100 900;
-  src: url('fonts/AtkinsonHyperlegibleNext-Italic-VF.woff2') format('woff2');
+  src: url('../../fonts/AtkinsonHyperlegibleNext-Italic-VF.woff2') format('woff2');
   unicode-range:
     U+0000-00FF,
     U+0131,
@@ -66,7 +66,20 @@
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url('fonts/InterVariable.woff2') format('woff2');
+  src: url('../../fonts/InterVariable.woff2') format('woff2');
+  font-feature-settings:
+    'cv01' 1,  // Alternate one — clearer 1
+    'cv02' 1,  // Open four — more legible 4
+    'cv03' 1,  // Open six — more legible 6
+    'cv04' 1,  // Open nine — more legible 9
+    'cv05' 1,  // Lower case L with tail — distinguish l from I
+    'cv06' 1,  // Simplified u — distinguish u from v
+    'cv08' 1,  // Upper-case i with serif — distinguish I from l
+    'cv09' 1,  // Flat top three — more distinguishable 3
+    'cv10' 1,  // Capital G with spur — more distinguishable G
+    'cv11' 1,  // Single-storey a — more legible a
+    'zero' 1,  // Slashed zero — distinguish 0 from O
+    'tnum' 1;  // Tabular numbers — align digits in tables/data
   unicode-range:
     U+0000-00FF,
     U+0131,
@@ -94,7 +107,20 @@
   font-style: italic;
   font-display: swap;
   font-weight: 100 900;
-  src: url('@fonts/InterVariable-Italic.woff2') format('woff2');
+  src: url('../../fonts/InterVariable-Italic.woff2') format('woff2');
+  font-feature-settings:
+    'cv01' 1,  // Alternate one — clearer 1
+    'cv02' 1,  // Open four — more legible 4
+    'cv03' 1,  // Open six — more legible 6
+    'cv04' 1,  // Open nine — more legible 9
+    'cv05' 1,  // Lower case L with tail — distinguish l from I
+    'cv06' 1,  // Simplified u — distinguish u from v
+    'cv08' 1,  // Upper-case i with serif — distinguish I from l
+    'cv09' 1,  // Flat top three — more distinguishable 3
+    'cv10' 1,  // Capital G with spur — more distinguishable G
+    'cv11' 1,  // Single-storey a — more legible a
+    'zero' 1,  // Slashed zero — distinguish 0 from O
+    'tnum' 1;  // Tabular numbers — align digits in tables/data
   unicode-range:
     U+0000-00FF,
     U+0131,
