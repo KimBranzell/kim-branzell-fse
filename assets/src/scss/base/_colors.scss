@@ -1,0 +1,52 @@
+// ═══════════════════════════════════════════════════════════
+// COLOR CSS CUSTOM PROPERTIES — generated from _palette.scss
+// ═══════════════════════════════════════════════════════════
+// Do not edit values here. Edit _palette.scss instead.
+//
+// Cascade (highest priority last):
+//   1. :root                       — light mode (base)
+//   2. prefers-color-scheme:dark   — OS dark, no manual override
+//   3. [data-theme="dark"]         — forced dark (manual toggle)
+//   4. [data-theme="light"]        — forced light (manual toggle)
+// ═══════════════════════════════════════════════════════════
+
+@use "palette" as *;
+
+:root {
+  color-scheme: light dark;
+
+  --c-1: #{$c-1};
+  --c-2: #{$c-2};
+  --c-3: #{$c-3};
+  --c-4: #{$c-4};
+}
+
+// OS-level dark mode — only when no manual override is present.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --c-1: #{$c-1-dark};
+    --c-2: #{$c-2-dark};
+    --c-3: #{$c-3-dark};
+    --c-4: #{$c-4-dark};
+  }
+}
+
+// Manual override: forced dark.
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-1: #{$c-1-dark};
+  --c-2: #{$c-2-dark};
+  --c-3: #{$c-3-dark};
+  --c-4: #{$c-4-dark};
+}
+
+// Manual override: forced light.
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --c-1: #{$c-1};
+  --c-2: #{$c-2};
+  --c-3: #{$c-3};
+  --c-4: #{$c-4};
+}

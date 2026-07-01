@@ -1,6 +1,20 @@
+@use '@scss/base/reset' as *;
+@use '@scss/base/typography';
+@use '@scss/base/colors' as *;
 @use '@scss/base/tokens' as *;
 @use '@scss/base/mixins' as *;
 @use '@scss/base/fonts';
+@use '@scss/header/header' as *;
+@use '@scss/components/search' as *;
+
+/**
+ * Blocks
+ */
+
+@use '@scss/blocks/hero' as *;
+@use '@scss/blocks/intro' as *;
+@use '@scss/blocks/faq' as *;
+@use '@scss/blocks/about' as *;
 
 :where(html) {
     hanging-punctuation: first allow-end last;
@@ -15,21 +29,21 @@
 
 @layer base {
   a:where([href]) {
-    --anchor-underline-color: oklch(from var(--wp--preset--color--links) l c h / .5);
+    --anchor-underline-color: color-mix(in oklch, var(--c-3) 50%, transparent);
     --anchor-underline-offset: .1em;
     --anchor-underline-thickness: 1px;
-    color: oklch(var(--wp--preset--color--links));
+    color: var(--c-1);
     text-decoration: underline;
-    text-decoration-color: currentcolor;
-    text-decoration-thickness: auto;
-    text-decoration-color: var(--wp--preset--color--links);
     text-decoration-thickness: var(--anchor-underline-thickness);
+    text-decoration-color: var(--anchor-underline-color);
     text-decoration-skip-ink: auto;
     text-underline-offset: var(--anchor-underline-offset);
   }
-  a:where([href]):hover,
-  a:where([href]):focus-visible {
+  a:where([href]):focus-visible,
+  a:where([href]):active {
     text-decoration: none;
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 }
 
@@ -38,7 +52,43 @@
 }
 
 body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: color-mix(in oklch, var(--c-1) 10%, contrast-color(var(--c-2)));
 }
+
+// ── Smooth theme transitions ──────────────────────────────
+// Respects reduced-motion preference for vestibular disorders.
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  .site-header__top,
+  .site-header__bottom,
+  .site-header__breadcrumbs,
+  .site-header,
+  .theme-switcher,
+  .theme-switcher__option {
+    transition: background-color 0.35s ease,
+                color 0.35s ease,
+                border-color 0.35s ease;
+  }
+}
+
+
+select, textarea, input, button {
+  font: inherit;
+}
+
+main {
+  background: #fff;
+  .main__inner {
+    @include container;
+
+    header {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
 
 button:focus-visible,
 a:focus-visible {

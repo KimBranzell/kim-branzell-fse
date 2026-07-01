@@ -7,15 +7,19 @@ function kb_enqueue_frontend_assets() : void {
 		return;
 	}
 
-	kb_enqueue_entry_styles( $entry, 'kb-app' );
+	kb_enqueue_entry_scripts( $entry, 'kb-frontend' );
+	kb_enqueue_entry_styles( $entry, 'kb-frontend' );
+}
 
-	wp_enqueue_script(
-		'kb-app',
-		KB_DIST_URI . '/' . $entry['file'],
-		array(),
-		kb_asset_version( $entry['file'] ),
-		true
-	);
+function kb_enqueue_mobilemenu_assets() : void {
+	$manifest = kb_get_manifest();
+	$entry = $manifest['assets/src/js/mobilemenu.js'] ?? null;
+
+	if ( ! $entry ) {
+		return;
+	}
+
+	kb_enqueue_entry_scripts( $entry, 'kb-mobilemenu' );
 }
 
 function kb_enqueue_editor_assets() : void {
@@ -27,14 +31,7 @@ function kb_enqueue_editor_assets() : void {
 	}
 
 	kb_enqueue_entry_styles( $entry, 'kb-editor' );
-
-	wp_enqueue_script(
-		'kb-editor',
-		KB_DIST_URI . '/' . $entry['file'],
-		array( 'wp-dom-ready' ),
-		kb_asset_version( $entry['file'] ),
-		true
-	);
+	kb_enqueue_entry_scripts( $entry, 'kb-editor' );
 }
 
 function kb_enqueue_entry_styles( array $entry, string $handle_prefix ) : void {
@@ -48,6 +45,31 @@ function kb_enqueue_entry_styles( array $entry, string $handle_prefix ) : void {
 			KB_DIST_URI . '/' . $css_file,
 			array(),
 			kb_asset_version( $css_file )
+		);
+	}
+}
+
+function kb_enqueue_entry_scripts( array $entry, string $handle_prefix ) : void {
+	$js_files = array();
+
+	if ( ! empty( $entry['js'] ) && is_array( $entry['js'] ) ) {
+		$js_files = $entry['js'];
+	} elseif ( ! empty( $entry['file'] ) ) {
+		$js_files = array( $entry['file'] );
+	}
+
+	if ( empty( $js_files ) ) {
+		return;
+	}
+
+
+	foreach ( $js_files as $index => $js_file ) {
+		wp_enqueue_script(
+			$handle_prefix . '-script-' . $index,
+			KB_DIST_URI . '/' . $js_file,
+			array(),
+			kb_asset_version( $js_file ),
+			true
 		);
 	}
 }

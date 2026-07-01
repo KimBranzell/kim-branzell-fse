@@ -1,0 +1,280 @@
+@use '@scss/base/mixins' as *;
+
+// ═══════════════════════════════════════════════════════════════
+// SEARCH FORM
+// Used both inline in the header (.site-header__search) and
+// standalone on the search results / no-results page.
+// ═══════════════════════════════════════════════════════════════
+
+.search-form {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	gap: 0.5rem;
+
+	&__label {
+		// .screen-reader-text is defined in header.scss — keep label
+		// visually hidden but available to assistive technology.
+	}
+
+	&__input {
+		flex: 1;
+		min-width: 0;
+		padding: 0.4rem 0.75rem;
+		border-radius: 6px;
+		color: var(--c-1);
+		line-height: 1.5;
+		min-height: 44px;
+
+		&::placeholder {
+			// Use at least 70% mixing to meet ~3:1 contrast minimum
+			// for placeholder text (SC 1.4.3).
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-2));
+			opacity: 1; // Firefox
+		}
+
+		&:focus {
+			outline: 2px solid var(--c-1);
+			outline-offset: 1px;
+			border-color: var(--c-1);
+		}
+	}
+
+	&__submit {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.4rem 0.75rem;
+		border: 1px solid var(--c-3);
+		border-radius: 6px;
+		background: var(--c-1);
+		// c-1 and c-2 are a foreground/background pair:
+		// use c-2 (the background tone) when on a c-1 surface.
+		color: var(--c-2);
+		cursor: pointer;
+		line-height: 1.5;
+		min-height: 40px;
+		white-space: nowrap;
+
+		&:hover,
+		&:focus-visible {
+			background: color-mix(in srgb, var(--c-1), var(--c-4) 30%);
+			border-color: var(--c-4);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--c-2);
+			outline-offset: 2px;
+		}
+
+		&:active {
+			@media (prefers-reduced-motion: no-preference) {
+				transform: scale(0.97);
+			}
+		}
+	}
+
+	&__submit-icon {
+		display: block;
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+	}
+
+	&__submit-text {
+		// Visible text label for the button — not hidden.
+		// The icon is presentational (aria-hidden).
+	}
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// SEARCH RESULTS PAGE
+// ═══════════════════════════════════════════════════════════════
+
+.search-header {
+	margin-bottom: 2rem;
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+
+	&__title {
+		line-height: 1.2;
+		margin: 0 0 0.5rem;
+	}
+
+	&__query {
+		font-style: italic;
+		opacity: 0.85;
+	}
+
+	&__count {
+		margin: 0;
+		opacity: 0.85;
+	}
+
+	&__count-number {
+		font-weight: 600;
+	}
+}
+
+.search-results {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.search-result {
+	padding: 1.25rem;
+	border: 1px solid var(--c-3);
+	border-radius: 8px;
+	background: var(--c-2);
+
+	&__title {
+		line-height: 1.3;
+		margin: 0 0 0.5rem;
+
+		a {
+			color: var(--c-1);
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--c-4);
+				outline-offset: 2px;
+				text-decoration: underline;
+				border-radius: 2px;
+			}
+		}
+	}
+
+	&__excerpt {
+		line-height: 1.55;
+		margin-bottom: 0.5rem;
+		opacity: 0.95;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__meta {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 0.75rem;
+		opacity: 0.75;
+	}
+
+	&__type,
+	&__date {
+		display: inline-block;
+	}
+}
+
+// ── No results state ──────────────────────────────────────
+
+.search-no-results {
+	text-align: center;
+	padding: 3rem 1rem;
+
+	&__message {
+		line-height: 1.5;
+		margin: 0 0 1.5rem;
+	}
+
+	// The embedded search form on the no-results page
+	// should be centered and reasonably sized.
+	.search-form {
+		max-width: 400px;
+		margin: 0 auto;
+	}
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// PAGINATION
+// ═══════════════════════════════════════════════════════════════
+
+.search-pagination,
+.pagination {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+	margin: 2rem 0;
+	flex-flow: row wrap;
+
+	.nav-links {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 0.35rem;
+		align-items: center;
+	}
+
+	a,
+	span.current {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 40px;
+		min-height: 40px;
+		padding: 0.3rem 0.65rem;
+		border: 1px solid var(--c-3);
+		border-radius: 6px;
+		text-decoration: none;
+		color: var(--c-1);
+		line-height: 1;
+	}
+
+	a:hover,
+	a:focus-visible {
+		background: var(--c-3);
+	}
+
+	a:focus-visible {
+		outline: 2px solid var(--c-1);
+		outline-offset: 1px;
+	}
+
+	span.current {
+		background: var(--c-1);
+		// c-1 and c-2 are a foreground/background pair:
+		// use c-2 for text on a c-1 surface.
+		color: var(--c-2);
+		border-color: var(--c-1);
+		font-weight: 600;
+	}
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// HEADER INLINE SEARCH FORM
+// Shrink the search form when it lives in the site header tools
+// area to keep the header compact.
+// ═══════════════════════════════════════════════════════════════
+
+.site-header__search {
+	.search-form {
+		// Compact layout inside the header
+		gap: 0.25rem;
+
+		&__input {
+			width: 140px;
+			padding: 0.25rem 0.5rem;
+			min-height: 44px;
+		}
+
+		&__submit {
+			padding: 0.25rem 0.5rem;
+			min-height: 44px;
+		}
+
+		&__submit-icon {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}

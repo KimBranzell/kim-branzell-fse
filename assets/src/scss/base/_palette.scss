@@ -1,0 +1,29 @@
+// ═══════════════════════════════════════════════════════════
+// COLOR PALETTE — THE single source of truth
+// ═══════════════════════════════════════════════════════════
+// Abstract 4-color palette. Names are role-based, not
+// color-based, so you can swap hex values without renaming.
+//
+// c-1 = base      (text, primary surfaces)
+// c-2 = neutral   (backgrounds, large surfaces)
+// c-3 = accent    (links, CTAs, highlights)
+// c-4 = highlight (secondary accent, hover states)
+//
+// How to use:
+//   var(--c-1)     → base color (auto-swaps in dark mode)
+//   tint(2, 30%)   → lighten c-2 by 30% at runtime
+//   shade(3, 15%)  → darken c-3 by 15% at runtime
+//
+// ═══════════════════════════════════════════════════════════
+
+// ─── Light mode palette ───────────────────────────────────
+$c-1: #0c6f67;
+$c-2: #F8F9F9;
+$c-3: #e5eff1;
+$c-4: #063935;
+
+// ─── Dark mode palette (completely separate values) ───────
+$c-1-dark: #F8F9F9;
+$c-2-dark: #09332C;
+$c-3-dark: #063935;
+$c-4-dark: #F0531C;

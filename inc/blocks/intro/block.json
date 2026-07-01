@@ -1,0 +1,59 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/intro",
+	"title": "Intro",
+	"category": "design",
+	"icon": "info",
+	"description": "Editorial intro section with eyebrow, headline, image, and service cards.",
+	"supports": {
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"eyebrow": {
+			"type": "object",
+			"default": {
+				"sectionLabel": "01 Introduction",
+				"year": "2024"
+			}
+		},
+		"headline": {
+			"type": "string",
+			"default": "Building a sustainable future through innovative renewable energy solutions"
+		},
+		"image": {
+			"type": "object",
+			"default": null
+		},
+		"services": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Solar Energy",
+					"description": "Clean, renewable power from the sun for homes and businesses.",
+					"link": "#solar",
+					"inverted": false
+				},
+				{
+					"title": "Hydro Energy",
+					"description": "Reliable energy from water flow to power communities.",
+					"link": "#hydro",
+					"inverted": false
+				},
+				{
+					"title": "Geothermal Energy",
+					"description": "Earth heat harnessed for sustainable heating and power.",
+					"link": "#geothermal",
+					"inverted": false
+				},
+				{
+					"title": "Wind Energy",
+					"description": "Turbines converting wind into clean electricity at scale.",
+					"link": "#wind",
+					"inverted": true
+				}
+			]
+		}
+	},
+	"editorScript": "kb-intro-editor"
+}

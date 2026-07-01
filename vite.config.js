@@ -5,42 +5,9 @@ import { readFileSync, writeFileSync } from 'fs';
 
 const r = (path) => fileURLToPath(new URL(path, import.meta.url));
 
-function themeJsonTokens() {
-  return {
-    name: 'theme-json-tokens',
-    configResolved() {
-      const theme = JSON.parse(
-        readFileSync('./theme.json', 'utf-8')
-      );
-      const tokens = [];
-      // Spacing scale
-      if (theme.settings?.spacing?.spacingScale) {
-        const steps = theme.settings.spacing.spacingScale.steps;
-        for (let i = 0; i <= steps; i++) {
-          tokens.push(`$spacing-${i}: var(--wp--preset--spacing--${i});`);
-        }
-      }
-      // Colors
-      if (theme.settings?.color?.palette) {
-        for (const c of theme.settings.color.palette) {
-          tokens.push(`$color-${c.slug}: var(--wp--preset--color--${c.slug});`);
-        }
-      }
-      // Font families
-      if (theme.settings?.typography?.fontFamilies) {
-        for (const f of theme.settings.typography.fontFamilies) {
-          tokens.push(`$font-${f.slug}: var(--wp--preset--font-family--${f.slug});`);
-        }
-      }
-      // Write to _tokens.scss dynamically
-      writeFileSync('./assets/src/scss/base/_tokens.scss', tokens.join('\n'));
-    }
-  };
-}
-
 export default defineConfig({
   base: './',
-  plugins: [themeJsonTokens()],
+  plugins: [],
   resolve: {
     alias: {
       '@': r('./assets/src'),
@@ -90,9 +57,15 @@ export default defineConfig({
         /^@wordpress\//,
         /^wp\./,
       ],
-      input: {
+        input: {
         app: r('./assets/src/js/app.js'),
-        editor: r('./assets/src/js/editor.js')
+        mobilemenu: r('./assets/src/js/mobilemenu.js'),
+        editor: r('./assets/src/js/editor.js'),
+        ogpreview: r('./assets/src/js/ogpreview.js'),
+        hero: r('./inc/blocks/hero/index.js'),
+        intro: r('./inc/blocks/intro/index.js'),
+        faq: r('./inc/blocks/faq/index.js'),
+        about: r('./inc/blocks/about/index.js')
       },
       output: {
         entryFileNames: 'js/[name].js',
@@ -107,10 +80,6 @@ export default defineConfig({
             {
               test: /node_modules/,
               name: 'vendor'
-            },
-            {
-              test: /\/modules\//,
-              name: 'modules'
             }
           ]
         },

@@ -5,7 +5,7 @@
  */
 function kb_add_svg_defs() : void {
   echo '
-  <svg aria-hidden="true" hidden>
+  <svg aria-hidden="true">
     <defs>
       <g id="rss-svg">
         <title>RSS</title>

@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/hero",
+	"title": "Hero",
+	"category": "design",
+	"icon": "cover-image",
+	"description": "Hero section with title, count, and optional background image.",
+	"supports": {
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Hello World"
+		},
+		"count": {
+			"type": "integer",
+			"default": 5
+		},
+		"enabled": {
+			"type": "boolean",
+			"default": true
+		},
+		"image": {
+			"type": "object",
+			"default": null
+		},
+		"size": {
+			"type": "string",
+			"enum": ["small", "medium", "large"],
+			"default": "medium"
+		}
+	},
+	"editorScript": "kb-hero-editor"
+}

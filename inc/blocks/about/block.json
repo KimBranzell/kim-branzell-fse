@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/about",
+	"title": "About Me",
+	"category": "design",
+	"icon": "admin-users",
+	"description": "A bento-style about section with a portrait image and flexible info boxes.",
+	"supports": {
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"portrait": {
+			"type": "object",
+			"default": null
+		},
+		"eyebrow": {
+			"type": "object",
+			"default": {
+				"sectionLabel": "02 About",
+				"year": ""
+			}
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "bio",
+					"title": "About Me",
+					"content": "Add your bio here. Write a few sentences about yourself, your background, and what you're passionate about.",
+					"size": "large"
+				},
+				{
+					"id": "skills",
+					"title": "Skills",
+					"content": "HTML, CSS, JavaScript, PHP, WordPress Development",
+					"size": "medium"
+				},
+				{
+					"id": "experience",
+					"title": "Experience",
+					"content": "5+ years building websites and web applications.",
+					"size": "medium"
+				},
+				{
+					"id": "contact",
+					"title": "Contact",
+					"content": "hello@example.com",
+					"size": "medium"
+				}
+			]
+		}
+	},
+	"editorScript": "kb-about-editor"
+}
