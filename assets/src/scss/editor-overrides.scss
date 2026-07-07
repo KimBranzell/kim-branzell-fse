@@ -1,0 +1,322 @@
+// ═══════════════════════════════════════════════════════════
+// EDITOR-ONLY OVERRIDES
+// Loaded only in the block editor context (not on frontend).
+// ═══════════════════════════════════════════════════════════
+
+@use '@scss/base/mixins' as *;
+@use '@scss/base/colors' as *;
+
+// ═══════════════════════════════════════════════════════════
+// EDITOR CANVAS WIDTH
+// Remove WordPress's default narrow max-width on the editor
+// canvas so our blocks can use their own container-constrained
+// width (max-width: 1600px via --site-max-width).
+// ═══════════════════════════════════════════════════════════
+
+.editor-styles-wrapper {
+	max-width: none;
+	width: 100%;
+}
+
+// The root container in the iframe also has constraints.
+.block-editor-block-list__layout.is-root-container {
+	max-width: none;
+}
+
+// Classic theme fallback — WordPress core's classic.css sets
+// `html :where(.wp-block) { max-width: 840px }` on every block.
+// Since :where() has zero specificity, an extra class in the
+// selector guarantees the override wins regardless of load order.
+.editor-styles-wrapper .wp-block {
+	max-width: none;
+}
+
+// ═══════════════════════════════════════════════════════════
+// INLINE CANVAS EDIT FORM
+// Spacious editing controls that appear in the block canvas
+// (not the sidebar) when a block is selected.
+// ═══════════════════════════════════════════════════════════
+
+.block-edit-form {
+	background: #fff;
+	border: 1px solid #e2e4e7;
+	border-radius: 8px;
+	padding: 1.5rem;
+	margin-block: 0 1.5rem;
+
+	// Section grouping
+	&__section {
+		margin-bottom: 1.25rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__section-label {
+		font-size: 0.6875rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #757575;
+		margin: 0 0 0.75rem 0;
+		padding: 0 0 0.5rem 0;
+		border-bottom: 1px solid #e2e4e7;
+	}
+
+	// Side-by-side field rows
+	&__row {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 1rem;
+
+		> * {
+			flex: 1;
+			min-width: 180px;
+		}
+	}
+
+	// SSR preview inside the edit form
+	&__preview {
+		position: relative;
+		margin-bottom: 1.5rem;
+		border: 1px solid #e2e4e7;
+		border-radius: 6px;
+
+		// Show a scrollbar if the preview is taller than this
+		max-height: 460px;
+		overflow: auto;
+	}
+
+	// Reduce vertical spacing on WP form controls inside the edit form
+	.components-base-control {
+		margin-bottom: 0.5rem;
+	}
+
+	.components-textarea-control__input {
+		min-height: 80px;
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// COLOR PICKER DARK MODE SUPPORT
+// ═══════════════════════════════════════════════════════════
+
+.component-color-indicator,
+.block-editor-color-gradient-control,
+.components-circular-option-picker__option {
+	color-scheme: light dark;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SHARED EDITOR UTILITIES
+// ═══════════════════════════════════════════════════════════
+
+// Help text style used inside block previews
+.editor-help-text {
+	font-size: 0.8125rem;
+	color: color-mix(in oklch, var(--c-1) 55%, transparent);
+	font-style: italic;
+	text-align: center;
+	padding: 1.5rem 1rem;
+}
+
+// Dotted placeholder for missing media
+.editor-placeholder-dotted {
+	border: 2px dashed color-mix(in oklch, var(--c-1) 20%, transparent);
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 120px;
+	font-size: 0.8125rem;
+	color: color-mix(in oklch, var(--c-1) 45%, transparent);
+	text-align: center;
+	padding: 1rem;
+}
+
+// Disabled block overlay
+.editor-disabled-badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 2rem;
+	background: color-mix(in oklch, var(--c-1) 5%, transparent);
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	color: color-mix(in oklch, var(--c-1) 55%, transparent);
+
+	.dashicons {
+		font-size: 1.25rem;
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+}
+
+// Empty state for blocks in editor
+.editor-empty-state {
+	padding: 2rem 1.5rem;
+	background: color-mix(in oklch, var(--c-1) 3%, transparent);
+	border: 2px dashed color-mix(in oklch, var(--c-1) 15%, transparent);
+	border-radius: 0.5rem;
+	text-align: center;
+	color: color-mix(in oklch, var(--c-1) 50%, transparent);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	max-width: 30rem;
+	margin: 0 auto;
+
+	&__icon {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+		display: block;
+		opacity: 0.5;
+	}
+
+	&__message {
+		margin: 0;
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// FAQ PICKER STYLES (editor sidebar)
+// ═══════════════════════════════════════════════════════════
+
+.kb-faq-picker {
+	&__label {
+		font-size: 0.875rem;
+		font-weight: 600;
+		margin: 0 0 0.75rem 0;
+		color: var(--c-1);
+	}
+
+	&__selected {
+		margin-bottom: 1.5rem;
+		background: rgba(0, 0, 0, 0.03);
+		border-radius: 0.5rem;
+		padding: 0.75rem;
+
+		summary {
+			font-size: 0.8125rem;
+			font-weight: 600;
+			color: var(--c-1);
+			cursor: pointer;
+		}
+	}
+
+	&__selected-list {
+		list-style: none;
+		margin: 0.75rem 0 0 0;
+		padding: 0;
+	}
+
+	&__selected-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem;
+		background: #fff;
+		border-radius: 0.375rem;
+		margin-bottom: 0.5rem;
+		font-size: 0.8125rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__order-buttons {
+		display: flex;
+		gap: 0.25rem;
+		margin-right: 0.25rem;
+
+		button {
+			padding: 0.125rem;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			border-radius: 0.25rem;
+			color: var(--c-1);
+
+			&:hover {
+				background: rgba(0, 0, 0, 0.06);
+			}
+
+			&:disabled {
+				opacity: 0.3;
+				cursor: default;
+			}
+		}
+	}
+
+	&__selected-title {
+		flex: 1;
+		font-size: 0.8125rem;
+		color: var(--c-1);
+	}
+
+	&__available {
+		summary {
+			font-size: 0.8125rem;
+			font-weight: 600;
+			color: var(--c-1);
+			cursor: pointer;
+			padding: 0.5rem 0;
+		}
+	}
+
+	&__available-list {
+		list-style: none;
+		margin: 0.5rem 0 0 0;
+		padding: 0;
+		border: 1px solid color-mix(in oklch, var(--c-1) 15%, transparent);
+		border-radius: 0.375rem;
+		max-height: 300px;
+		overflow-y: auto;
+	}
+
+	&__item-content {
+		flex: 1;
+	}
+
+	&__item-title {
+		font-size: 0.8125rem;
+		color: var(--c-1);
+	}
+
+	&__checkbox {
+		width: 1.5rem;
+		height: 1.5rem;
+		padding: 0;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0.25rem;
+		color: var(--c-1);
+
+		&:hover {
+			background: rgba(0, 0, 0, 0.06);
+		}
+
+		[aria-pressed="true"] {
+			color: #2271b1;
+		}
+	}
+}
+
+// Screen reader only utility (for editor)
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

@@ -9,15 +9,6 @@
  */
 ?>
 <section class="about" aria-labelledby="about-heading">
-	<?php if ( $eyebrow['sectionLabel'] ) : ?>
-	<p class="about__eyebrow">
-		<span class="about__eyebrow-section"><?php echo esc_html( $eyebrow['sectionLabel'] ); ?></span>
-		<span class="about__eyebrow-site"><?php bloginfo( 'name' ); ?></span>
-		<?php if ( $eyebrow['year'] ) : ?>
-		<time class="about__eyebrow-year" datetime="<?php echo esc_attr( $eyebrow['year'] ); ?>"><?php echo esc_html( $eyebrow['year'] ); ?></time>
-		<?php endif; ?>
-	</p>
-	<?php endif; ?>
 
 	<div class="about__content">
 		<div class="about__grid">

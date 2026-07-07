@@ -1,0 +1,19 @@
+// ═══════════════════════════════════════════════════════════
+// SHARED BLOCK STYLES
+// Loaded in BOTH frontend (via app.scss) and editor
+// (via editor.scss). Single source of truth for block CSS.
+// ═══════════════════════════════════════════════════════════
+
+@use '@scss/base/colors' as *;
+@use '@scss/base/tokens' as *;
+@use '@scss/base/mixins' as *;
+@use '@scss/base/fonts';
+@use '@scss/base/typography';
+
+/**
+ * Custom block styles
+ */
+@use '@scss/blocks/hero' as *;
+@use '@scss/blocks/intro' as *;
+@use '@scss/blocks/faq' as *;
+@use '@scss/blocks/about' as *;

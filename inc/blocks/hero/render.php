@@ -13,8 +13,10 @@ function kb_render_block_hero( array $attributes, string $content = '' ) : strin
 	}
 
 	$title = esc_html( $attributes['title'] ?? 'Hello World' );
+	$intro = esc_html( $attributes['intro'] ?? '' );
 	$count = (int) ( $attributes['count'] ?? 5 );
 	$size  = esc_attr( $attributes['size'] ?? 'medium' );
+	$ctas  = $attributes['ctas'] ?? array();
 
 	// Image: stored as { id, url, alt } object from MediaPlaceholder.
 	$image = $attributes['image'] ?? null;
@@ -36,6 +38,18 @@ function kb_render_block_hero( array $attributes, string $content = '' ) : strin
 		);
 	} else {
 		$image_html = '';
+	}
+
+	// Build CTAs HTML.
+	$ctas_html = '';
+	foreach ( $ctas as $cta ) {
+		$cta_text = esc_html( $cta['text'] ?? __( 'Learn more', 'kim-branzell' ) );
+		$cta_url  = esc_url( $cta['url'] ?? '#' );
+		$ctas_html .= sprintf(
+			'<a href="%s" class="hero__cta-button">%s</a>',
+			$cta_url,
+			$cta_text
+		);
 	}
 
 	ob_start();

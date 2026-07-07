@@ -5,33 +5,6 @@
 
   @include container;
 
-  // ─── Eyebrow bar ─────────────────────────────────────────
-  &__eyebrow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--c-3);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-
-    &-section {
-      color: var(--c-1);
-      font-weight: 400;
-    }
-
-    &-site {
-      font-weight: 600;
-      color: var(--c-1);
-    }
-
-    &-year {
-      text-align: right;
-      color: color-mix(in oklch, var(--c-1) 60%, transparent);
-    }
-  }
-
   // ─── Main content ─────────────────────────────────────────
   &__content {
     padding: 4rem 0;
@@ -44,7 +17,7 @@
     gap: 3rem;
 
     @include desktop {
-      grid-template-columns: 2fr 3fr;
+      grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: stretch;
     }
@@ -156,7 +129,6 @@
 
   // ─── Bento item title ────────────────────────────────────
   &__bento-item-title {
-    font-size: 1rem;
     font-weight: 600;
     color: var(--c-1);
     margin: 0;
@@ -165,7 +137,6 @@
 
   // ─── Bento item content ──────────────────────────────────
   &__bento-item-content {
-    font-size: 0.875rem;
     color: color-mix(in oklch, var(--c-1) 70%, transparent);
     margin: 0;
     line-height: 1.6;
@@ -188,10 +159,6 @@
 
     &__bento-column {
       order: 1;
-    }
-
-    &__eyebrow {
-      order: 0;
     }
 
     &__content {

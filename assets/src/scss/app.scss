@@ -4,17 +4,17 @@
 @use '@scss/base/tokens' as *;
 @use '@scss/base/mixins' as *;
 @use '@scss/base/fonts';
-@use '@scss/header/header' as *;
-@use '@scss/components/search' as *;
 
 /**
- * Blocks
+ * Shared block styles (also loaded in editor via editor.scss)
  */
+@use '@scss/blocks' as *;
 
-@use '@scss/blocks/hero' as *;
-@use '@scss/blocks/intro' as *;
-@use '@scss/blocks/faq' as *;
-@use '@scss/blocks/about' as *;
+/**
+ * Frontend-only layout and component styles
+ */
+@use '@scss/header/header' as *;
+@use '@scss/components/search' as *;
 
 :where(html) {
     hanging-punctuation: first allow-end last;
@@ -47,10 +47,6 @@
   }
 }
 
-:root {
-
-}
-
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: color-mix(in oklch, var(--c-1) 10%, contrast-color(var(--c-2)));
@@ -72,7 +68,6 @@ body {
   }
 }
 
-
 select, textarea, input, button {
   font: inherit;
 }
@@ -88,7 +83,6 @@ main {
     }
   }
 }
-
 
 button:focus-visible,
 a:focus-visible {

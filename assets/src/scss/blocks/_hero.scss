@@ -9,29 +9,13 @@
     display: grid;
   }
 
-  &__eyebrow {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    gap: 1rem;
-    #{$g}__image-wrapper {
-      max-width: 72px;
-      max-height: 72px;
-    }
-    #{$g}__name-title {
-      display: flex;
-      flex-flow: column;
-      .name {
-        font-weight: 600;
-        color: var(--c-1);
-      }
-    }
-  }
   &__text-container {
     flex-flow: row nowrap;
     padding: 0;
     margin-top: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     h2 {
       color: var(--c-1);
       margin-top: 0;

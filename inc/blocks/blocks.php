@@ -14,7 +14,7 @@ function register_blocks() {
 	wp_register_script(
 		'kb-hero-editor',
 		KB_DIST_URI . '/js/hero.js',
-		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element' ),
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-server-side-render' ),
 		kb_asset_version( 'js/hero.js' ),
 		true
 	);
@@ -34,7 +34,7 @@ function register_blocks() {
 	wp_register_script(
 		'kb-intro-editor',
 		KB_DIST_URI . '/js/intro.js',
-		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element' ),
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-server-side-render' ),
 		kb_asset_version( 'js/intro.js' ),
 		true
 	);
@@ -54,7 +54,7 @@ function register_blocks() {
 	wp_register_script(
 		'kb-faq-editor',
 		KB_DIST_URI . '/js/faq.js',
-		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-data' ),
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-data', 'wp-server-side-render' ),
 		kb_asset_version( 'js/faq.js' ),
 		true
 	);
@@ -74,7 +74,7 @@ function register_blocks() {
 	wp_register_script(
 		'kb-about-editor',
 		KB_DIST_URI . '/js/about.js',
-		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element' ),
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-server-side-render' ),
 		kb_asset_version( 'js/about.js' ),
 		true
 	);

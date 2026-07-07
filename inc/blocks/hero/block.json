@@ -5,7 +5,7 @@
 	"title": "Hero",
 	"category": "design",
 	"icon": "cover-image",
-	"description": "Hero section with title, count, and optional background image.",
+	"description": "Hero section with title, intro text, call-to-action buttons, and optional background image.",
 	"supports": {
 		"align": ["wide", "full"]
 	},
@@ -13,6 +13,23 @@
 		"title": {
 			"type": "string",
 			"default": "Hello World"
+		},
+		"intro": {
+			"type": "string",
+			"default": "I build resilient digital ecosystems that are thoughtful, fast, and welcoming to everyone. My approach to software engineering prioritizes technical precision, robust accessibility, and a minimal carbon footprint. I also have a soft spot for sustainable solutions and good coffee."
+		},
+		"ctas": {
+			"type": "array",
+			"default": [
+				{
+					"text": "View projects",
+					"url": "#"
+				},
+				{
+					"text": "Read manifesto",
+					"url": "#"
+				}
+			]
 		},
 		"count": {
 			"type": "integer",

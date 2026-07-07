@@ -5,35 +5,6 @@
 
   @include container;
 
-  // ─── Eyebrow bar ─────────────────────────────────────────
-  // Full-width bar: section label | site name | year
-  &__eyebrow {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--c-3);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-
-    &-section {
-      color: var(--c-1);
-      font-weight: 400;
-    }
-
-    &-site {
-      text-align: center;
-      font-weight: 600;
-      color: var(--c-1);
-    }
-
-    &-year {
-      text-align: right;
-      color: color-mix(in oklch, var(--c-1) 60%, transparent);
-    }
-  }
-
   // ─── Main content ─────────────────────────────────────────
   &__content {
     padding: 4rem 0;
@@ -42,7 +13,6 @@
   // ─── Display headline ─────────────────────────────────────
   &__headline {
     font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 400;
     line-height: 1.1;
     color: var(--c-1);
@@ -152,7 +122,6 @@
   }
 
   &__card-title {
-    font-size: 1rem;
     font-weight: 600;
     color: var(--c-1);
     margin: 0;

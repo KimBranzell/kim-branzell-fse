@@ -7,203 +7,182 @@ wp.domReady( () => {
 		MediaUploadCheck,
 		InspectorControls,
 	} = wp.blockEditor;
-	const { PanelBody, TextControl, SelectControl, ToggleControl, Button, Icon } =
+	const { PanelBody, TextControl, TextareaControl, SelectControl, ToggleControl, Button } =
 		wp.components;
-	const { __ } = wp.i18n;
+	const { __, sprintf } = wp.i18n;
 	const el = wp.element.createElement;
 	const Fragment = wp.element.Fragment;
+	const ServerSideRender = wp.serverSideRender;
 
 	const speak = ( wp.a11y && wp.a11y.speak )
 		? wp.a11y.speak.bind( wp.a11y )
 		: function () {};
 
+	function updateCta( ctas, index, field, value ) {
+		const newCtas = [ ...ctas ];
+		if ( ! newCtas[ index ] ) {
+			newCtas[ index ] = { text: '', url: '#' };
+		}
+		newCtas[ index ] = { ...newCtas[ index ], [ field ]: value };
+		return newCtas;
+	}
+
 	try {
 		registerBlockType( 'kim-branzell/hero', {
-			edit: function HeroEdit( { attributes, setAttributes } ) {
-				const { title, count, enabled, image, size } = attributes;
-
-				const blockProps = useBlockProps( {
-					className: 'hero-editor hero-editor--size-' + size,
-				} );
-
+			edit: function HeroEdit( { attributes, setAttributes, isSelected } ) {
+				const { title, intro, ctas, count, enabled, image, size } = attributes;
+				const blockProps = useBlockProps();
 				const hasImage = image?.url;
-				const titleDisplay = title || __( 'Add a title', 'kim-branzell' );
-				const titleEmptyClass = title ? '' : ' hero-editor__preview-title--empty';
 
 				const onSelectImage = ( media ) => {
 					setAttributes( {
-						image: {
-							id: media.id,
-							url: media.url,
-							alt: media.alt || media.title || '',
-						},
+						image: { id: media.id, url: media.url, alt: media.alt || media.title || '' },
 					} );
 					speak( __( 'Hero image updated.', 'kim-branzell' ) );
 				};
 
 				const onRemoveImage = () => {
-					setAttributes( { image: null } );
-					speak( __( 'Hero image removed.', 'kim-branzell' ) );
-				};
-
-				const onConfirmRemove = () => {
 					if ( window.confirm( __( 'Remove the hero image?', 'kim-branzell' ) ) ) {
-						onRemoveImage();
+						setAttributes( { image: null } );
+						speak( __( 'Hero image removed.', 'kim-branzell' ) );
 					}
 				};
 
-				const previewClass = 'hero-editor__preview' +
-					( hasImage ? ' hero-editor__preview--has-image' : '' );
-
-				return el(
-					Fragment,
-					null,
-					// ─── SIDEBAR: Inspector Controls ───
-					el(
-						InspectorControls,
-						null,
-						// Panel 1: Content
-						el(
-							PanelBody,
-							{ title: __( 'Content', 'kim-branzell' ), initialOpen: true },
+				// ─── Helper to render inline edit fields ───
+				function renderEditFields() {
+					return el(
+						'div',
+						{ className: 'block-edit-form' },
+						el( 'div', { className: 'block-edit-form__section' },
+							el( 'p', { className: 'block-edit-form__section-label' }, __( 'Heading', 'kim-branzell' ) ),
 							el( TextControl, {
 								label: __( 'Title', 'kim-branzell' ),
 								value: title,
 								onChange: ( val ) => setAttributes( { title: val } ),
-							} ),
-							el( TextControl, {
-								label: __( 'Count', 'kim-branzell' ),
-								type: 'number',
-								value: count,
-								help: __( 'Number displayed prominently in the hero.', 'kim-branzell' ),
-								onChange: ( val ) => setAttributes( { count: parseInt( val, 10 ) || 0 } ),
-							} ),
+							} )
+						),
+						el( 'div', { className: 'block-edit-form__section' },
+							el( 'p', { className: 'block-edit-form__section-label' }, __( 'Intro Text', 'kim-branzell' ) ),
+							el( TextareaControl, {
+								label: __( 'Intro', 'kim-branzell' ),
+								help: __( 'The paragraph displayed below the title.', 'kim-branzell' ),
+								value: intro,
+								onChange: ( val ) => setAttributes( { intro: val } ),
+							} )
+						),
+						el( 'div', { className: 'block-edit-form__section' },
+							el( 'p', { className: 'block-edit-form__section-label' }, __( 'Call-to-Action Buttons', 'kim-branzell' ) ),
+							[ 0, 1 ].map( ( i ) =>
+								el(
+									'div',
+									{ key: i, className: 'block-edit-form__row', style: { marginBottom: '0.75rem' } },
+									el( TextControl, {
+										label: sprintf( __( 'Button %d Text', 'kim-branzell' ), i + 1 ),
+										value: ( ctas[ i ] && ctas[ i ].text ) || '',
+										onChange: ( val ) =>
+											setAttributes( { ctas: updateCta( ctas, i, 'text', val ) } ),
+									} ),
+									el( TextControl, {
+										label: sprintf( __( 'Button %d URL', 'kim-branzell' ), i + 1 ),
+										value: ( ctas[ i ] && ctas[ i ].url ) || '#',
+										onChange: ( val ) =>
+											setAttributes( { ctas: updateCta( ctas, i, 'url', val ) } ),
+									} )
+								)
+							)
+						)
+					);
+				}
+
+				// ─── Canvas content ───
+				const previewContent = ! enabled
+					? el(
+							'div',
+							{ className: 'editor-disabled-badge' },
+							el( 'span', { className: 'dashicons dashicons-hidden', 'aria-hidden': 'true' } ),
+							__( 'Hero is hidden on the front end.', 'kim-branzell' )
+					  )
+					: isSelected
+						? el(
+								Fragment,
+								null,
+								// Compact SSR preview
+								el(
+									'div',
+									{ className: 'block-edit-form__preview' },
+									el( ServerSideRender, { block: 'kim-branzell/hero', attributes: attributes } )
+								),
+								// Inline edit form
+								renderEditFields()
+						  )
+						: el( ServerSideRender, { block: 'kim-branzell/hero', attributes: attributes } );
+
+				return el(
+					Fragment,
+					null,
+					// ─── SIDEBAR: secondary controls only ───
+					el(
+						InspectorControls,
+						null,
+						el(
+							PanelBody,
+							{ title: __( 'Settings', 'kim-branzell' ), initialOpen: true },
 							el( SelectControl, {
 								label: __( 'Size', 'kim-branzell' ),
 								value: size,
-								help: __( 'Controls the hero height.', 'kim-branzell' ),
 								options: [
 									{ label: __( 'Small', 'kim-branzell' ), value: 'small' },
 									{ label: __( 'Medium', 'kim-branzell' ), value: 'medium' },
 									{ label: __( 'Large', 'kim-branzell' ), value: 'large' },
 								],
 								onChange: ( val ) => setAttributes( { size: val } ),
+							} ),
+							el( ToggleControl, {
+								label: __( 'Show Hero Section', 'kim-branzell' ),
+								checked: enabled,
+								onChange: ( val ) => setAttributes( { enabled: val } ),
 							} )
 						),
-						// Panel 2: Image
 						el(
 							PanelBody,
-							{ title: __( 'Image', 'kim-branzell' ), initialOpen: true },
+							{ title: __( 'Image', 'kim-branzell' ), initialOpen: false },
 							hasImage
 								? el(
 										Fragment,
 										null,
-										el(
-											'div',
-											{ style: { marginBottom: '1rem' } },
-											el( 'img', {
-												src: image.url,
-												alt: image.alt || '',
-												style: {
-													width: '100%',
-													height: 'auto',
-													maxHeight: '120px',
-													objectFit: 'cover',
-													borderRadius: '8px',
-												},
-											} )
-										),
-										el(
-											'div',
-											{ style: { display: 'flex', gap: '0.5rem', marginBottom: '1rem' } },
-											el(
-												MediaUploadCheck,
-												null,
+										el( 'img', {
+											src: image.url,
+											alt: image.alt || '',
+											style: { width: '100%', height: 'auto', maxHeight: '120px', objectFit: 'cover', borderRadius: '8px' },
+										} ),
+										el( 'div', { style: { display: 'flex', gap: '0.5rem', margin: '0.5rem 0' } },
+											el( MediaUploadCheck, null,
 												el( MediaUpload, {
 													onSelect: onSelectImage,
 													allowedTypes: [ 'image' ],
 													value: image.id,
-													render: ( { open } ) =>
-														el( Button, { onClick: open, variant: 'secondary', isSmall: true },
-															__( 'Replace Image', 'kim-branzell' )
-														),
+													render: ( { open } ) => el( Button, { onClick: open, variant: 'secondary', isSmall: true }, __( 'Replace', 'kim-branzell' ) ),
 												} )
 											),
-											el( Button, {
-												onClick: onConfirmRemove,
-												variant: 'tertiary',
-												isDestructive: true,
-												isSmall: true,
-											}, __( 'Remove', 'kim-branzell' ) )
+											el( Button, { onClick: onRemoveImage, variant: 'tertiary', isDestructive: true, isSmall: true }, __( 'Remove', 'kim-branzell' ) )
 										),
 										el( TextControl, {
-											label: __( 'Alternative Text', 'kim-branzell' ),
-											help: __( 'Describe the image for screen readers. Leave empty if purely decorative.', 'kim-branzell' ),
+											label: __( 'Alt text', 'kim-branzell' ),
 											value: image.alt || '',
-											onChange: ( val ) =>
-												setAttributes( { image: { ...image, alt: val } } ),
+											onChange: ( val ) => setAttributes( { image: { ...image, alt: val } } ),
 										} )
 								  )
-								: el(
-										MediaPlaceholder,
-										{
-											icon: 'format-image',
-											labels: {
-												title: __( 'Hero Image', 'kim-branzell' ),
-												instructions: __( 'Upload or select a background image for the hero section.', 'kim-branzell' ),
-											},
-											onSelect: onSelectImage,
-											accept: 'image/*',
-											allowedTypes: [ 'image' ],
-										}
-								  )
-						),
-						// Panel 3: Visibility
-						el(
-							PanelBody,
-							{ title: __( 'Visibility', 'kim-branzell' ), initialOpen: false },
-							el( ToggleControl, {
-								label: __( 'Show Hero Section', 'kim-branzell' ),
-								checked: enabled,
-								help: enabled
-									? __( 'Hero is visible on the front end.', 'kim-branzell' )
-									: __( 'Hero is hidden on the front end.', 'kim-branzell' ),
-								onChange: ( val ) => setAttributes( { enabled: val } ),
-							} )
+								: el( MediaPlaceholder, {
+										icon: 'format-image',
+										labels: { title: __( 'Hero Image', 'kim-branzell' ), instructions: __( 'Upload or select a background image.', 'kim-branzell' ) },
+										onSelect: onSelectImage,
+										accept: 'image/*',
+										allowedTypes: [ 'image' ],
+								  } )
 						)
 					),
-					// ─── PREVIEW AREA ───
-					el(
-						'div',
-						blockProps,
-						// Richer preview: hero card with background, title, count badge
-						el(
-							'div',
-							{ className: previewClass },
-							hasImage && el( 'div', { className: 'hero-editor__preview-overlay' } ),
-							el(
-								'div',
-								{ className: 'hero-editor__preview-content' },
-								el(
-									'h2',
-									{ className: 'hero-editor__preview-title' + titleEmptyClass },
-									titleDisplay
-								),
-								el(
-									'div',
-									{ className: 'hero-editor__preview-count' },
-									String( count || 0 )
-								)
-							)
-						),
-						// Disabled badge
-						! enabled && el(
-							'div',
-							{ className: 'hero-editor__disabled-badge' },
-							el( 'span', { className: 'dashicons dashicons-hidden', 'aria-hidden': 'true' } ),
-							__( 'Hero is hidden on the front end', 'kim-branzell' )
-						)
-					)
+					// ─── CANVAS ───
+					el( 'div', blockProps, previewContent )
 				);
 			},
 			save: () => null,

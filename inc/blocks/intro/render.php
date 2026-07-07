@@ -44,7 +44,7 @@ function kb_render_block_intro( array $attributes, string $content = '' ) : stri
 
 		$services_html .= sprintf(
 			'<li class="%s">
-				<h2 class="intro__card-title">%s</h2>
+				<h2 class="intro__card-title h4">%s</h2>
 				<p class="intro__card-description">%s</p>
 				<a href="%s" class="intro__card-link" aria-label="%s">View details</a>
 			</li>',
