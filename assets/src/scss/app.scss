@@ -22,7 +22,9 @@
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
     -webkit-text-size-adjust: none;
-    text-size-adjust: none;
+    -moz-text-size-adjust: none;
+     -ms-text-size-adjust: none;
+         text-size-adjust: none;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
 }
@@ -32,11 +34,13 @@
     --anchor-underline-color: color-mix(in oklch, var(--c-3) 50%, transparent);
     --anchor-underline-offset: .1em;
     --anchor-underline-thickness: 1px;
-    color: var(--c-1);
+    color: var(--c-2);
     text-decoration: underline;
     text-decoration-thickness: var(--anchor-underline-thickness);
-    text-decoration-color: var(--anchor-underline-color);
-    text-decoration-skip-ink: auto;
+    -webkit-text-decoration-color: var(--anchor-underline-color);
+            text-decoration-color: var(--anchor-underline-color);
+    -webkit-text-decoration-skip: ink;
+            text-decoration-skip-ink: auto;
     text-underline-offset: var(--anchor-underline-offset);
   }
   a:where([href]):focus-visible,
@@ -73,7 +77,7 @@ select, textarea, input, button {
 }
 
 main {
-  background: #fff;
+  background: var(--c-2);
   .main__inner {
     @include container;
 

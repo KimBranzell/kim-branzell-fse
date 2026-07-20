@@ -1,5 +1,6 @@
 <?php
-
+require_once get_theme_file_path( 'inc/functions/csp-nonce.php' );
+require_once get_theme_file_path( 'inc/functions/headers.php');
 require_once get_theme_file_path( 'inc/functions/cleanup.php' );
 
 define( 'KB_VERSION', '0.1.1' );

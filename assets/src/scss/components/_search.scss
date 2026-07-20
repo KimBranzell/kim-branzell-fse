@@ -26,10 +26,38 @@
 		line-height: 1.5;
 		min-height: 44px;
 
+		&::-webkit-input-placeholder {
+			// Use at least 70% mixing to meet ~3:1 contrast minimum
+			// for placeholder text (SC 1.4.3).
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			opacity: 1; // Firefox
+		}
+
+		&::-moz-placeholder {
+			// Use at least 70% mixing to meet ~3:1 contrast minimum
+			// for placeholder text (SC 1.4.3).
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			opacity: 1; // Firefox
+		}
+
+		&:-ms-input-placeholder {
+			// Use at least 70% mixing to meet ~3:1 contrast minimum
+			// for placeholder text (SC 1.4.3).
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			opacity: 1; // Firefox
+		}
+
+		&::-ms-input-placeholder {
+			// Use at least 70% mixing to meet ~3:1 contrast minimum
+			// for placeholder text (SC 1.4.3).
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			opacity: 1; // Firefox
+		}
+
 		&::placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-2));
+			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
 			opacity: 1; // Firefox
 		}
 
@@ -58,8 +86,8 @@
 
 		&:hover,
 		&:focus-visible {
-			background: color-mix(in srgb, var(--c-1), var(--c-4) 30%);
-			border-color: var(--c-4);
+			background: color-mix(in srgb, var(--c-1), var(--c-3) 30%);
+			border-color: var(--c-3);
 		}
 
 		&:focus-visible {
@@ -144,7 +172,7 @@
 			}
 
 			&:focus-visible {
-				outline: 2px solid var(--c-4);
+				outline: 2px solid var(--c-3);
 				outline-offset: 2px;
 				text-decoration: underline;
 				border-radius: 2px;

@@ -12,41 +12,22 @@
 
 @use "palette" as *;
 
-:root {
+html {
   color-scheme: light dark;
-
-  --c-1: #{$c-1};
-  --c-2: #{$c-2};
-  --c-3: #{$c-3};
-  --c-4: #{$c-4};
 }
 
-// OS-level dark mode — only when no manual override is present.
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --c-1: #{$c-1-dark};
-    --c-2: #{$c-2-dark};
-    --c-3: #{$c-3-dark};
-    --c-4: #{$c-4-dark};
-  }
-}
-
-// Manual override: forced dark.
-:root[data-theme="dark"] {
-  color-scheme: dark;
-
-  --c-1: #{$c-1-dark};
-  --c-2: #{$c-2-dark};
-  --c-3: #{$c-3-dark};
-  --c-4: #{$c-4-dark};
-}
-
-// Manual override: forced light.
-:root[data-theme="light"] {
+html[data-theme=light] {
   color-scheme: light;
+}
 
-  --c-1: #{$c-1};
-  --c-2: #{$c-2};
+html[data-theme=dark] {
+  color-scheme: dark;
+}
+
+:root {
+  --c-1: #{$main-background};
+  --c-2: #{$alternative-background};
   --c-3: #{$c-3};
   --c-4: #{$c-4};
+  --c-5: #{$c-5};
 }

@@ -1,5 +1,9 @@
 import '@scss/app.scss';
 
+// ── Prevent flash of incorrect theme: apply saved preference before any CSS paints. This runs synchronously before wp_head() output. ──────────
+(function(){var t;try{t=localStorage.getItem('kb-theme-preference')}catch(e){}if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}})();
+
+
 // ── FAQ Accordion (self-initializing module) ───────────────
 import './modules/faq.js';
 
@@ -178,21 +182,10 @@ if ( ! headerNav ) {
 var buttons = Array.prototype.slice.call(headerNav.querySelectorAll('button[aria-controls]'));
 var subMenus = Array.prototype.slice.call(headerNav.querySelectorAll('button[aria-controls] + ul, button[aria-controls] + div'));
 
-function openSubNav(buttonEl) {
-  var navId = buttonEl.getAttribute('aria-controls');
-  var navEl = document.getElementById(navId);
-
-  if (navEl) {
-    buttonEl.setAttribute("aria-expanded", "true");
-
-    // Move focus into the submenu so keyboard users don't have
-    // to tab through the rest of the top-level items first.
-    var firstFocusable = navEl.querySelector('a, button');
-    if (firstFocusable) {
-      firstFocusable.focus();
-    }
-  }
-}
+// Flag to suppress focusout handling during programmatic focus moves
+// inside openSubNav. Prevents the submenu from closing when
+// firstFocusable.focus() triggers a synchronous focusout event.
+var openingSubNav = false;
 
 function openSubNav(buttonEl) {
   var navId = buttonEl.getAttribute('aria-controls');
@@ -205,7 +198,9 @@ function openSubNav(buttonEl) {
     // to tab through the rest of the top-level items first.
     var firstFocusable = navEl.querySelector('a, button');
     if (firstFocusable) {
+      openingSubNav = true;
       firstFocusable.focus();
+      openingSubNav = false;
     }
   }
 }
@@ -256,6 +251,15 @@ function handleNavKeyDown(event) {
 }
 
 function handleNavFocusOut(event) {
+  // Suppress during programmatic focus moves inside openSubNav
+  // to avoid a race where the submenu closes immediately after opening.
+  if (openingSubNav) return;
+
+  // Guard against browsers that don't set relatedTarget on focusout.
+  // When relatedTarget is null, focus may have moved to a non-focusable
+  // element or the document itself — we should not close in that case.
+  if (!event.relatedTarget) return;
+
   var navContainsFocus = this.contains(event.relatedTarget);
   if (!navContainsFocus) {
     var button = this.querySelector('button[aria-controls]');

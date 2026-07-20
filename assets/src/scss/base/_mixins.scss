@@ -59,7 +59,7 @@ $breakpoint-tablet: 1023px;
 /// Accessible focus ring using palette accent + white tint
 @mixin focus-ring {
   outline: 2px dashed currentColor;
-  outline-offset: 2px;
+  outline-offset: -3px;
 }
 
 @mixin container {

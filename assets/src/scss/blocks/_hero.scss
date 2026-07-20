@@ -2,42 +2,99 @@
 
 .hero {
   $g: &;
-  padding: 120px 0;
-
+  background: var(--c-1);
+  color: contrast-color(shade(1, 10%));
+  min-height: 100vh;
   &__inner {
     @include container;
+    display: -ms-grid;
     display: grid;
+    .image-holder {
+      position: absolute;
+      inset: 0;
+      background: var(--c-4);
+      img {
+        -o-object-fit: cover;
+           object-fit: cover;
+        -o-object-position: center;
+           object-position: center;
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        mix-blend-mode: multiply;
+      }
+    }
+    .image-gradient {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.98));
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  &__text {
+    p {
+      margin-bottom: 0;
+    }
   }
 
   &__text-container {
-    flex-flow: row nowrap;
-    padding: 0;
-    margin-top: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    min-height: 100vh;
+    padding: 7rem 0 7.5rem;
+    display: flex;
+    position: relative;
+    flex-flow: column;
+    justify-content: flex-end;
+    max-width: 64rem;
     h2 {
-      color: var(--c-1);
       margin-top: 0;
       margin-bottom: 0;
-      font-weight: 400;
-      flex: 1;
+      color: #fff;
+      @include smartphone {
+        font-size: 250%;
+      }
     }
   }
   &__lower-text-container {
-    display: flex;
-    flex-flow: column;
-    flex: 1;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    padding-top: 1.5rem;
+    margin-top: 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+
+    #{$g}__text {
+      -ms-grid-column-span: 12;
+      grid-column: span 12 / span 12;
+      @include desktop {
+        -ms-grid-column-span: 8;
+        grid-column: span 8 / span 8;
+      }
+    }
 
     #{$g}__cta-buttons {
       display: flex;
       flex-flow: row;
-      justify-content: flex-start;
+      justify-content: flex-end;
+      align-items: flex-end;
       gap: 1rem;
+      -ms-grid-column-span: 12;
+      grid-column: span 12 / span 12;
+      margin-top: 1.75rem;
+      @include desktop {
+        margin-top: 0;
+        -ms-grid-column-span: 4;
+        grid-column: span 4 / span 4;
+      }
       a {
-        background: var(--c-1);
+        background: var(--c-3);
         padding: 1rem 1.25rem;
-        color: contrast-color(var(--c-1));
+        color: contrast-color(var(--c-3));
+        flex: 1;
+        text-align: center;
+        @include desktop {
+          flex: unset;
+        }
       }
     }
   }
@@ -46,7 +103,11 @@
 
   h2 {}
   p {
-    font-size: 150%;
+    font-size: 125%;
+    color: #fff;
+    @include smartphone {
+      margin-top: 0;
+    }
   }
   @include tablet{}
   @include desktop{}

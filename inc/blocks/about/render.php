@@ -37,20 +37,25 @@ function kb_render_block_about( array $attributes, string $content = '' ) : stri
 	foreach ( $items as $item ) {
 		$id      = esc_attr( $item['id'] ?? '' );
 		$title   = esc_html( $item['title'] ?? '' );
-		$content = esc_html( $item['content'] ?? '' );
+		$content = trim( $item['content'] ?? '' );
 		$size    = esc_attr( $item['size'] ?? 'medium' );
+
+		$content_html = '';
+		if ( '' !== $content ) {
+			$content_html = '<div class="about__bento-item-content">' . wp_kses_post( wpautop( $content ) ) . '</div>';
+		}
 
 		$items_html .= sprintf(
 			'<div class="about__bento-item about__bento-item--%s" data-item-id="%s">
 				<div class="about__bento-item-header">
 					<h3 class="about__bento-item-title">%s</h3>
 				</div>
-				<p class="about__bento-item-content">%s</p>
+				%s
 			</div>',
 			$size,
 			$id,
 			$title,
-			wp_kses_post( wpautop( $content ) )
+			$content_html
 		);
 	}
 

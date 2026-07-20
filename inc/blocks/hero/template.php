@@ -13,11 +13,17 @@
 ?>
 <div class="hero hero--<?php echo $size; ?>">
 	<div class="hero__inner">
+		<div class="image-holder">
+			<?php echo $image_html; ?>
+			<div class="image-gradient"></div>
+		</div>
 		<div class="hero__text-container">
 			<h2><?php echo $title; ?></h2>
 			<div class="hero__lower-text-container">
 				<?php if ( $intro ) : ?>
-				<p><?php echo $intro; ?></p>
+				<div class="hero__text">
+					<p><?php echo $intro; ?></p>
+				</div>
 				<?php endif; ?>
 				<?php if ( $ctas_html ) : ?>
 				<div class="hero__cta-buttons">

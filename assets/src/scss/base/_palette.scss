@@ -4,10 +4,12 @@
 // Abstract 4-color palette. Names are role-based, not
 // color-based, so you can swap hex values without renaming.
 //
-// c-1 = base      (text, primary surfaces)
-// c-2 = neutral   (backgrounds, large surfaces)
-// c-3 = accent    (links, CTAs, highlights)
-// c-4 = highlight (secondary accent, hover states)
+// c-1 = Main Background
+// c-2 = Alternative Background
+// c-3 = Accent                       (links, CTAs, highlights)
+// c-4 = Hover State                  (secondary accent, hover states)
+// c-5 = text                         (primary text color)
+// c-6 = text-alt  (secondary text color)
 //
 // How to use:
 //   var(--c-1)     → base color (auto-swaps in dark mode)
@@ -17,13 +19,14 @@
 // ═══════════════════════════════════════════════════════════
 
 // ─── Light mode palette ───────────────────────────────────
-$c-1: #0c6f67;
-$c-2: #F8F9F9;
-$c-3: #e5eff1;
-$c-4: #063935;
+$main-background: light-dark(#F2ECE4, #333333);
+$alternative-background: light-dark(#D8CFC2, #5E6650);
+$c-3: light-dark(#43442B, #c9a87A);
+$c-4: light-dark(#939474, #2F472D);
+$c-5: #292728;
 
 // ─── Dark mode palette (completely separate values) ───────
-$c-1-dark: #F8F9F9;
-$c-2-dark: #09332C;
+$c-1-dark: #063935;
+$c-2-dark: #0c6f67;
 $c-3-dark: #063935;
 $c-4-dark: #F0531C;

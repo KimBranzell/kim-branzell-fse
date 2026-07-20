@@ -13,6 +13,7 @@ function disable_emojis() {
 	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 	add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+	add_filter( 'wp_enqueue_scripts', 'deregister_jquery' );
 }
 add_action( 'init', 'disable_emojis' );
 
@@ -28,4 +29,8 @@ function disable_emojis_tinymce( $plugins ) {
 	} else {
 		return array();
 	}
+}
+function deregister_jquery( ){
+    wp_dequeue_script( 'jquery');
+    wp_deregister_script( 'jquery');
 }
