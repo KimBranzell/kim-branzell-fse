@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/project-index",
+	"title": "Project Index",
+	"category": "design",
+	"icon": "portfolio",
+	"description": "Editorial index of published projects: title, sector, tags, and year, with a total project count.",
+	"supports": {
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"eyebrow": {
+			"type": "string",
+			"default": "Recent engagements"
+		},
+		"heading": {
+			"type": "string",
+			"default": "Project index"
+		},
+		"postsToShow": {
+			"type": "integer",
+			"default": 0
+		},
+		"showCount": {
+			"type": "boolean",
+			"default": true
+		},
+		"enabled": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "kb-project-index-editor"
+}

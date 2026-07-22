@@ -7,7 +7,7 @@
 .kb-faq-section {
 	$g: &;
 	padding: 4rem 0;
-	background: var(--c-2, #F5F5F7);
+	background: var(--alternative, #F5F5F7);
 
 	// ─── Inner container ─────────────────────────────────
 	&__inner {
@@ -36,14 +36,14 @@
 		font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
 		font-weight: 400;
 		line-height: 1.15;
-		color: var(--c-1);
+		color: var(--main);
 		margin: 0 0 1.5rem 0;
 		letter-spacing: -0.02em;
 		max-width: 15ch;
 	}
 
 	&__subtitle {
-		color: color-mix(in oklch, var(--c-1) 70%, transparent);
+		color: color-mix(in oklch, var(--main) 70%, transparent);
 		margin: 0 0 2rem 0;
 		line-height: 1.6;
 	}
@@ -79,8 +79,8 @@
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.75rem 1.5rem;
-		background: var(--c-1);
-		color: var(--c-2);
+		background: var(--main);
+		color: var(--alternative);
 		border-radius: 9999px;
 		font-weight: 600;
 		text-decoration: none;
@@ -93,7 +93,7 @@
 		}
 
 		&:hover {
-			background: color-mix(in srgb, var(--c-1), black 10%);
+			background: color-mix(in srgb, var(--main), black 10%);
 			text-decoration: none;
 
 			svg {
@@ -126,10 +126,10 @@
 
 .kb-faq-item {
 	$g: &;
-	border-bottom: 1px solid color-mix(in oklch, var(--c-1) 12%, transparent);
+	border-bottom: 1px solid color-mix(in oklch, var(--main) 12%, transparent);
 
 	&:first-child {
-		border-top: 1px solid color-mix(in oklch, var(--c-1) 12%, transparent);
+		border-top: 1px solid color-mix(in oklch, var(--main) 12%, transparent);
 	}
 
 	// ─── Question Button ────────────────────────────────
@@ -146,12 +146,12 @@
 		text-align: left;
 		font-family: inherit;
 		font-weight: 500;
-		color: var(--c-1);
+		color: var(--main);
 		line-height: 1.4;
 		font-size: 130%;
 
 		&:hover {
-			color: color-mix(in srgb, var(--c-1), black 15%);
+			color: color-mix(in srgb, var(--main), black 15%);
 		}
 
 		&:focus-visible {
@@ -179,7 +179,7 @@
 		transition:
 			background-color 0.2s ease,
 			border-color 0.2s ease;
-		border: 1.5px solid color-mix(in oklch, var(--c-1) 30%, transparent);
+		border: 1.5px solid color-mix(in oklch, var(--main) 30%, transparent);
 		background: transparent;
 
 		@include desktop {
@@ -237,9 +237,9 @@
 	// ─── Expanded State ─────────────────────────────────
 	&[data-expanded="true"] {
 		#{$g}__icon {
-			background: var(--c-1);
-			border-color: var(--c-1);
-			color: var(--c-2);
+			background: var(--main);
+			border-color: var(--main);
+			color: var(--alternative);
 		}
 
 		#{$g}__icon-plus {
@@ -284,7 +284,7 @@
 		}
 
 		a {
-			color: var(--c-1);
+			color: var(--main);
 			text-decoration: underline;
 			text-decoration-thickness: 1px;
 			text-underline-offset: 0.15em;

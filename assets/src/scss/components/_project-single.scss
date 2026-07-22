@@ -1,0 +1,121 @@
+@use '@scss/base/mixins' as *;
+
+// ═══════════════════════════════════════════════════════════
+// SINGLE PROJECT TEMPLATE
+//
+// Editorial single-project view. Echoes the project-index block
+// language: generous whitespace, token colors only, runtime
+// color-mix() against contrast-color(var(--alternative)) for muted
+// tones and dividers — no hardcoded hex.
+// ═══════════════════════════════════════════════════════════
+
+.project-single {
+	$g: &;
+
+	--_muted: color-mix(in srgb, contrast-color(var(--alternative)) 75%, transparent);
+	--_border: color-mix(in srgb, contrast-color(var(--alternative)) 15%, transparent);
+
+	max-width: 48rem;
+	margin-inline: auto;
+
+	// ─── Header ──────────────────────────────────────────
+	&__header {
+		margin-bottom: 3rem;
+	}
+
+	// ─── Title ───────────────────────────────────────────
+	&__title {
+		font-size: clamp(2.25rem, 5vw, 3.5rem);
+		font-weight: 500;
+		letter-spacing: -0.025em;
+		line-height: 1.15;
+		margin: 0;
+	}
+
+	// ─── Meta list (dl) ─────────────────────────────────
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		margin: 1.5rem 0 0;
+		padding: 1.5rem 0 0;
+		border-top: 1px solid var(--_border);
+	}
+
+	&__meta-item {
+		dt {
+			font-size: 0.8125rem;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: var(--_muted);
+			margin: 0;
+		}
+
+		dd {
+			margin: 0.25rem 0 0;
+			font-size: 0.95rem;
+		}
+	}
+
+	// ─── Featured image ─────────────────────────────────
+	&__media {
+		margin: 0 0 3rem;
+	}
+
+	&__image {
+		width: 100%;
+		height: auto;
+		border-radius: 0.5rem;
+		display: block;
+	}
+
+	// ─── Content ────────────────────────────────────────
+	&__content {
+		max-width: 48rem;
+	}
+
+	// ─── Footer / post navigation ───────────────────────
+	&__footer {
+		margin-top: 4rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--_border);
+
+		.nav-links {
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+			flex-wrap: wrap;
+		}
+
+		.nav-previous,
+		.nav-next {
+			a {
+				color: auto-contrast(var(--alternative));
+				text-decoration: none;
+
+				&:hover {
+					color: var(--accent);
+					text-decoration: underline;
+					text-underline-offset: 0.25em;
+				}
+
+				&:focus-visible {
+					outline: 2px dashed var(--accent);
+					outline-offset: 3px;
+				}
+			}
+		}
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// REDUCED MOTION
+// ═══════════════════════════════════════════════════════════
+
+@media ( prefers-reduced-motion: reduce ) {
+	.project-single {
+		* {
+			transition: none !important;
+		}
+	}
+}

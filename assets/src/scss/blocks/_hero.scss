@@ -2,8 +2,8 @@
 
 .hero {
   $g: &;
-  background: var(--c-1);
-  color: contrast-color(shade(1, 10%));
+  background: var(--main);
+  color: auto-contrast(shade(main, 10%));
   min-height: 100vh;
   &__inner {
     @include container;
@@ -12,7 +12,7 @@
     .image-holder {
       position: absolute;
       inset: 0;
-      background: var(--c-4);
+      background: var(--main);
       img {
         -o-object-fit: cover;
            object-fit: cover;
@@ -87,9 +87,7 @@
         grid-column: span 4 / span 4;
       }
       a {
-        background: var(--c-3);
         padding: 1rem 1.25rem;
-        color: contrast-color(var(--c-3));
         flex: 1;
         text-align: center;
         @include desktop {

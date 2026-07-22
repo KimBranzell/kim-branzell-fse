@@ -2,12 +2,15 @@
 
 .intro {
   $g: &;
-
-  @include container;
+  background: var(--alternative);
+  color: auto-contrast(var(--alternative));
 
   // ─── Main content ─────────────────────────────────────────
   &__content {
+    @include container;
     padding: 4rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   // ─── Display headline ─────────────────────────────────────
@@ -15,14 +18,9 @@
     font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
     font-weight: 400;
     line-height: 1.1;
-    color: var(--c-1);
     margin: 0 0 3rem 0;
     letter-spacing: -0.02em;
     max-width: 18ch;
-
-    @include desktop {
-      grid-column: 1 / -1;
-    }
   }
 
   // ─── Two-column grid ─────────────────────────────────────
@@ -32,9 +30,6 @@
     gap: 3rem;
 
     @include desktop {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-      align-items: start;
     }
   }
 
@@ -64,84 +59,228 @@
     }
   }
 
-  // ─── Services cards ─────────────────────────────────────
+  // ─── Accordion container ─────────────────────────────────
   &__cards {
     display: flex;
     flex-direction: column;
     gap: 0;
-    list-style: none;
     padding: 0;
     margin: 0;
 
     @include desktop {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
   }
 
-  // ─── Individual card ─────────────────────────────────────
+  // ─── Accordion item ──────────────────────────────────────
   &__card {
-    padding: 1.5rem;
-    border: 1px solid var(--c-3);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    border-bottom: 1px solid color-mix(in oklch, auto-contrast(var(--alternative)) 12%, transparent);
 
-    // Horizontal rule between rows
-    &:not(:first-child) {
-      border-top: none;
-
-      @include desktop {
-        border-top: 1px solid var(--c-3);
-      }
+    &:first-child {
+      border-top: 1px solid color-mix(in oklch, auto-contrast(var(--alternative)) 12%, transparent);
     }
 
-    // Vertical rule between columns
-    &:nth-child(odd):not(:last-child) {
-      border-right: none;
-
-      @include desktop {
-        border-right: 1px solid var(--c-3);
-      }
-    }
-
-    // ─── Inverted (highlighted) card ───────────────────
+    // ─── Inverted (highlighted) item ────────────────────
     &--inverted {
-      background: var(--c-1);
-      border-color: var(--c-1);
+      background: var(--main);
+      border-color: var(--main);
 
-      #{$g}__card-title,
+      #{$g}__card-toggle {
+        color: auto-contrast(var(--alternative));
+      }
+
+      #{$g}__card-number {
+        color: auto-contrast(var(--alternative));
+      }
+
+      #{$g}__card-icon {
+        border-color: color-mix(in oklch, var(--alternative) 40%, transparent);
+        color: var(--alternative);
+      }
+
       #{$g}__card-description {
-        color: var(--c-2);
+        color: var(--alternative);
       }
 
       #{$g}__card-link {
-        color: var(--c-2);
+        color: var(--alternative);
       }
     }
   }
 
-  &__card-title {
-    font-weight: 600;
-    color: var(--c-1);
-    margin: 0;
+  // ─── Toggle button ───────────────────────────────────────
+  &__card-toggle {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem 0 1.5rem 1.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-weight: 500;
+    color: auto-contrast(var(--alternative));
     line-height: 1.3;
+
+    // Remove default button styles
+    -webkit-appearance: none;
+    appearance: none;
+
+    &:hover {
+      color: color-mix(in srgb, var(--main), black 15%);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
   }
 
-  &__card-description {
+  // ─── Number badge ────────────────────────────────────────
+  &__card-number {
+    flex-shrink: 0;
+    font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+    font-weight: 400;
     font-size: 0.875rem;
-    color: color-mix(in oklch, var(--c-1) 70%, transparent);
-    margin: 0;
-    line-height: 1.5;
-    flex: 1; // Push link to bottom
+    color: auto-contrast(var(--alternative));
+    letter-spacing: 0.05em;
+    min-width: 1.75rem;
   }
 
+  // ─── Title inside button ─────────────────────────────────
+  &__card-title {
+    flex: 1;
+    margin: 0;
+    color: auto-contrast(var(--alternative));
+  }
+
+  // ─── Expand/collapse icon ────────────────────────────────
+  &__card-icon {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+    border: 1.5px solid color-mix(in oklch, var(--main) 30%, transparent);
+    background: transparent;
+    margin-right: 0.25rem;
+
+    @include desktop {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+
+  &__card-icon-plus,
+  &__card-icon-minus {
+    display: block;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  &__card-icon-plus {
+    position: relative;
+    width: 12px;
+    height: 12px;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      width: 12px;
+      height: 2px;
+    }
+
+    &::after {
+      width: 2px;
+      height: 12px;
+    }
+  }
+
+  &__card-icon-minus {
+    display: none;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 2px;
+      background: currentColor;
+    }
+  }
+
+  // ─── Expanded state ──────────────────────────────────────
+  &__card[data-expanded="true"] {
+    outline: 2px;
+    #{$g}__card-icon {
+      background: auto-contrast(var(--alternative));
+      border-color: auto-contrast(var(--alternative));
+      color: var(--alternative);
+    }
+
+    #{$g}__card-icon-plus {
+      display: none;
+    }
+
+    #{$g}__card-icon-minus {
+      display: block;
+    }
+  }
+
+  // ─── Panel (description + link) ──────────────────────────
+  &__card-panel {
+    overflow: hidden;
+  }
+
+  // Only apply animation overrides when JS is active.
+  // Without JS, the native [hidden] display:none handles visibility.
+  .js-intro-accordion &__card-panel {
+    transition: max-height 0.35s ease, opacity 0.25s ease;
+
+    &[hidden] {
+      display: block; // Override HTML hidden for animation
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:not([hidden]) {
+      max-height: 1000px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &__card-panel-inner {
+    padding: 0 1.25rem 1.75rem 1.25rem;
+  }
+
+  // ─── Description text ────────────────────────────────────
+  &__card-description {
+    color: auto-contrast(var(--alternative));
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+
+  // ─── Link ────────────────────────────────────────────────
   &__card-link {
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--c-1);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -165,6 +304,22 @@
 
     // Ensure adequate touch target (44x44px minimum)
     padding: 0.5rem 0.25rem;
+  }
+
+  // ─── Reduced motion ──────────────────────────────────────
+  @media (prefers-reduced-motion: reduce) {
+    .js-intro-accordion &__card-panel {
+      transition: none;
+    }
+
+    &__card-icon {
+      transition: none;
+    }
+
+    &__card-icon-plus,
+    &__card-icon-minus {
+      transition: none;
+    }
   }
 
   // ─── Responsive: stack on mobile ─────────────────────────

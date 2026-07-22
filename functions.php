@@ -21,8 +21,8 @@ function kb_after_setup_theme() : void {
 	add_editor_style( 'assets/dist/css/editor.css' );
 
 	register_nav_menus( array(
-			'primary' => __( 'Primary Menu', 'text_domain' ),
-			'footer_menu'  => __( 'Footer Menu', 'text_domain' ),
+		'primary' => __( 'Primary Menu', 'kim-branzell' ),
+		'footer_menu'  => __( 'Footer Menu', 'kim-branzell' ),
 	) );
 
 }
@@ -63,6 +63,7 @@ require_once get_theme_file_path( 'inc/functions/enqueues.php' );
 require_once get_theme_file_path( 'inc/functions/filters.php' );
 require_once get_theme_file_path( 'inc/functions/site-menu.php' );
 require_once get_theme_file_path( 'inc/functions/cpt.php' );
+require_once get_theme_file_path( 'inc/functions/cpt-project.php' );
 require_once get_theme_file_path( 'inc/blocks/blocks.php' );
 require_once get_theme_file_path( 'inc/functions/user-portrait.php' );
 require_once get_theme_file_path( 'inc/functions/og-image.php' );

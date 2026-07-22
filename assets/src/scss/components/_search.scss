@@ -22,49 +22,49 @@
 		min-width: 0;
 		padding: 0.4rem 0.75rem;
 		border-radius: 6px;
-		color: var(--c-1);
+		color: var(--main);
 		line-height: 1.5;
 		min-height: 44px;
 
 		&::-webkit-input-placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			color: color-mix(in oklch, var(--main) 70%, var(--accent));
 			opacity: 1; // Firefox
 		}
 
 		&::-moz-placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			color: color-mix(in oklch, var(--main) 70%, var(--accent));
 			opacity: 1; // Firefox
 		}
 
 		&:-ms-input-placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			color: color-mix(in oklch, var(--main) 70%, var(--accent));
 			opacity: 1; // Firefox
 		}
 
 		&::-ms-input-placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			color: color-mix(in oklch, var(--main) 70%, var(--accent));
 			opacity: 1; // Firefox
 		}
 
 		&::placeholder {
 			// Use at least 70% mixing to meet ~3:1 contrast minimum
 			// for placeholder text (SC 1.4.3).
-			color: color-mix(in oklch, var(--c-1) 70%, var(--c-3));
+			color: color-mix(in oklch, var(--main) 70%, var(--accent));
 			opacity: 1; // Firefox
 		}
 
 		&:focus {
-			outline: 2px solid var(--c-1);
+			outline: 2px solid var(--main);
 			outline-offset: 1px;
-			border-color: var(--c-1);
+			border-color: var(--main);
 		}
 	}
 
@@ -73,12 +73,12 @@
 		align-items: center;
 		gap: 0.35rem;
 		padding: 0.4rem 0.75rem;
-		border: 1px solid var(--c-3);
+		border: 1px solid var(--accent);
 		border-radius: 6px;
-		background: var(--c-1);
+		background: var(--main);
 		// c-1 and c-2 are a foreground/background pair:
 		// use c-2 (the background tone) when on a c-1 surface.
-		color: var(--c-2);
+		color: var(--alternative);
 		cursor: pointer;
 		line-height: 1.5;
 		min-height: 40px;
@@ -86,12 +86,12 @@
 
 		&:hover,
 		&:focus-visible {
-			background: color-mix(in srgb, var(--c-1), var(--c-3) 30%);
-			border-color: var(--c-3);
+			background: color-mix(in srgb, var(--main), var(--accent) 30%);
+			border-color: var(--accent);
 		}
 
 		&:focus-visible {
-			outline: 2px solid var(--c-2);
+			outline: 2px solid var(--alternative);
 			outline-offset: 2px;
 		}
 
@@ -155,16 +155,16 @@
 
 .search-result {
 	padding: 1.25rem;
-	border: 1px solid var(--c-3);
+	border: 1px solid var(--accent);
 	border-radius: 8px;
-	background: var(--c-2);
+	background: var(--alternative);
 
 	&__title {
 		line-height: 1.3;
 		margin: 0 0 0.5rem;
 
 		a {
-			color: var(--c-1);
+			color: var(--main);
 			text-decoration: none;
 
 			&:hover {
@@ -172,7 +172,7 @@
 			}
 
 			&:focus-visible {
-				outline: 2px solid var(--c-3);
+				outline: 2px solid var(--accent);
 				outline-offset: 2px;
 				text-decoration: underline;
 				border-radius: 2px;
@@ -250,29 +250,29 @@
 		min-width: 40px;
 		min-height: 40px;
 		padding: 0.3rem 0.65rem;
-		border: 1px solid var(--c-3);
+		border: 1px solid var(--accent);
 		border-radius: 6px;
 		text-decoration: none;
-		color: var(--c-1);
+		color: var(--main);
 		line-height: 1;
 	}
 
 	a:hover,
 	a:focus-visible {
-		background: var(--c-3);
+		background: var(--accent);
 	}
 
 	a:focus-visible {
-		outline: 2px solid var(--c-1);
+		outline: 2px solid var(--main);
 		outline-offset: 1px;
 	}
 
 	span.current {
-		background: var(--c-1);
+		background: var(--main);
 		// c-1 and c-2 are a foreground/background pair:
 		// use c-2 for text on a c-1 surface.
-		color: var(--c-2);
-		border-color: var(--c-1);
+		color: var(--alternative);
+		border-color: var(--main);
 		font-weight: 600;
 	}
 }

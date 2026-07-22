@@ -15,22 +15,26 @@
 
 /// Lighten a palette color by mixing with white.
 @function tint($n, $pct) {
-  @return color-mix(in srgb, var(--c-#{$n}), white $pct);
+  @return color-mix(in srgb, var(--#{$n}), white $pct);
 }
 
 /// Darken a palette color by mixing with black.
 @function shade($n, $pct) {
-  @return color-mix(in srgb, var(--c-#{$n}), black $pct);
+  @return color-mix(in srgb, var(--#{$n}), black $pct);
 }
 
 /// Add transparency to a palette color.
 @function alpha($n, $pct) {
-  @return color-mix(in srgb, var(--c-#{$n}), transparent $pct);
+  @return color-mix(in srgb, var(--#{$n}), transparent $pct);
 }
 
 /// Blend two palette colors at a given weight.
 @function mix-c($a, $b, $weight: 50%) {
-  @return color-mix(in srgb, var(--c-#{$a}), var(--c-#{$b}) $weight);
+  @return color-mix(in srgb, var(--#{$a}), var(--#{$b}) $weight);
+}
+
+@function auto-contrast($color) {
+  @return unquote("oklch(from #{$color} round(1.21 - L) 0 0)");
 }
 
 // ═══════════════════════════════════════════════════════════

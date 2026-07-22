@@ -6,7 +6,7 @@
  * @var array  $eyebrow       { sectionLabel, year }
  * @var string $headline
  * @var string $image_html     Full <img> output.
- * @var string $services_html <li> items HTML.
+ * @var string $services_html Service accordion items HTML.
  */
 ?>
 <div class="intro">
@@ -24,9 +24,9 @@
 			<?php endif; ?>
 
 			<section class="intro__cards-column" aria-label="Services">
-				<ul class="intro__cards">
+				<div class="intro__cards" role="list" aria-multiselectable="false">
 					<?php echo $services_html; ?>
-				</ul>
+				</div>
 			</section>
 		</div>
 	</div>

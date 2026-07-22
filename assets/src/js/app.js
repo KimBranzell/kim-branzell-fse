@@ -7,6 +7,9 @@ import '@scss/app.scss';
 // ── FAQ Accordion (self-initializing module) ───────────────
 import './modules/faq.js';
 
+// ── Intro Accordion (self-initializing module) ─────────────
+import './modules/intro-accordion.js';
+
 // ── Theme switcher ─────────────────────────────────────────
 // Three-option selector: Light / System (follow OS) / Dark.
 // Progressive enhancement: inert without JS — theme follows OS

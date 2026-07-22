@@ -15,6 +15,7 @@
  */
 @use '@scss/header/header' as *;
 @use '@scss/components/search' as *;
+@use '@scss/components/project-single' as *;
 
 :where(html) {
     hanging-punctuation: first allow-end last;
@@ -31,10 +32,10 @@
 
 @layer base {
   a:where([href]) {
-    --anchor-underline-color: color-mix(in oklch, var(--c-3) 50%, transparent);
+    --anchor-underline-color: color-mix(in oklch, var(--accent) 50%, transparent);
     --anchor-underline-offset: .1em;
     --anchor-underline-thickness: 1px;
-    color: var(--c-2);
+    color: var(--alternative);
     text-decoration: underline;
     text-decoration-thickness: var(--anchor-underline-thickness);
     -webkit-text-decoration-color: var(--anchor-underline-color);
@@ -53,7 +54,7 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  color: color-mix(in oklch, var(--c-1) 10%, contrast-color(var(--c-2)));
+  color: auto-contrast(var(--alternative))
 }
 
 // ── Smooth theme transitions ──────────────────────────────
@@ -77,7 +78,7 @@ select, textarea, input, button {
 }
 
 main {
-  background: var(--c-2);
+  background: var(--alternative);
   .main__inner {
     @include container;
 
@@ -91,4 +92,13 @@ main {
 button:focus-visible,
 a:focus-visible {
   @include focus-ring;
+}
+
+
+button,
+a.btn {
+  background: var(--buttons);
+  color: auto-contrast(var(--buttons));
+  min-width: 44px;
+  min-height: 44px;
 }

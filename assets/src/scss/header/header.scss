@@ -8,7 +8,7 @@
   z-index: 1;
   width: 100%;
 
-  background: color-mix(rgba(17, 18, 19, 0.9) 70%, var(--c-4));
+  background: var(--main);
   -webkit-backdrop-filter: blur(12px);
           backdrop-filter: blur(12px);
 
@@ -24,7 +24,7 @@
       max-width: 30px;
 
       path {
-        fill: #fff;
+        fill: var(--alternative);
       }
 
       @include tablet {
@@ -38,7 +38,7 @@
     #{$g}__name {
       font-weight: 500;
       font-size: 150%;
-      color: contrast-color(rgba(17, 18, 19, 0.9));
+      color: auto-contrast(var(--main));
     }
   }
 
@@ -68,7 +68,7 @@
       position: fixed;
       inset: 0;
       z-index: 999;
-      background: var(--c-1);
+      background: var(--main);
       overflow: hidden;    // layers scroll individually
 
       // Hide the original static menu — layers replace it.
@@ -91,7 +91,7 @@
       inset: 0;
       display: none;
       flex-direction: column;
-      background: var(--c-1);
+      background: var(--main);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
 
@@ -110,7 +110,7 @@
         display: flex;
         align-items: center;
         padding: 0.5rem 0.75rem;
-        border-bottom: 1px solid var(--c-3);
+        border-bottom: 1px solid var(--accent);
         min-height: 52px;
         flex-shrink: 0;
         gap: 0.25rem;
@@ -124,7 +124,7 @@
         border: none;
         padding: 0.5rem 0.5rem;
         cursor: pointer;
-        color: contrast-color(var(--c-1));
+        color: auto-contrast(var(--main));
         min-height: 44px;
         min-width: 44px;
         border-radius: 4px;
@@ -139,14 +139,14 @@
         }
 
         &:focus-visible {
-          outline: 3px solid contrast-color(var(--c-1));
+          outline: 3px solid auto-contrast(var(--main));
           outline-offset: -3px;
         }
       }
 
       &__title {
         font-weight: 600;
-        color: contrast-color(var(--c-1));
+        color: auto-contrast(var(--main));
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -163,7 +163,7 @@
       &__item {
         display: flex;
         align-items: stretch;
-        border-bottom: 1px solid var(--c-3);
+        border-bottom: 1px solid var(--accent);
         min-height: 52px;
       }
 
@@ -173,7 +173,7 @@
         flex-direction: column;
         justify-content: center;
         padding: 0.75rem 1rem;
-        color: contrast-color(var(--c-1));
+        color: auto-contrast(var(--main));
         text-decoration: none;
         min-height: 44px;
         gap: 0.15rem;
@@ -183,7 +183,7 @@
         }
 
         &:focus-visible {
-          outline: 3px solid contrast-color(var(--c-1));
+          outline: 3px solid auto-contrast(var(--main));
           outline-offset: -3px;
         }
       }
@@ -202,7 +202,7 @@
         padding: 0.75rem 1rem;
         line-height: 1.4;
         opacity: 0.75;
-        border-bottom: 1px solid var(--c-3);
+        border-bottom: 1px solid var(--accent);
         background: shade(1, 5%);
       }
 
@@ -214,7 +214,7 @@
         border: none;
         padding: 0.75rem;
         cursor: pointer;
-        color: contrast-color(var(--c-1));
+        color: auto-contrast(var(--main));
         min-width: 52px;
         min-height: 52px;
         flex-shrink: 0;
@@ -230,7 +230,7 @@
         }
 
         &:focus-visible {
-          outline: 3px solid contrast-color(var(--c-1));
+          outline: 3px solid auto-contrast(var(--main));
           outline-offset: -3px;
         }
       }
@@ -252,22 +252,22 @@
           justify-items: center;
           align-items: center;
           &.is-active {
-            // border-bottom: 2px solid var(--c-3);
+            // border-bottom: 2px solid var(--accent);
             a {
-              background: var(--c-1);
-              // color: contrast-color(var(--c-1));
+              background: var(--main);
+              // color: auto-contrast(var(--main));
             }
           }
 
           button {
-            background: shade(4, 20%);
+            background: var(--buttons);
             width: 44px;
             height: 44px;
             display: flex;
             align-content: center;
             justify-content: center;
             align-items: center;
-            color: contrast-color(var(--c-3));
+            color: auto-contrast(var(--buttons));
 
             &:focus-visible {
               outline: 2px solid currentColor;
@@ -277,14 +277,14 @@
               width: 18px;
               height: 18px;
               path {
-                fill: contrast-color(var(--c-1));
+                fill: auto-contrast(var(--buttons));
               }
             }
             &:hover {
-              border-color: contrast-color(var(--c-3));
+              border-color: auto-contrast(var(--buttons));
               svg {
                 path {
-                  fill: contrast-color(var(--c-3));
+                  fill: auto-contrast(var(--buttons));
                 }
               }
             }
@@ -303,16 +303,16 @@
             }
           }
           a {
-            color: contrast-color(rgba(17, 18, 19, 0.9));
+            color: auto-contrast(var(--main));
             height: 100%;
             display: flex;
             align-items: center;
             padding-inline: 1rem;
             &:hover,
             &:focus {
-              background: var(--c-2);
+              background: var(--alternative);
               text-decoration: none;
-              color: contrast-color(var(--c-2));
+              color: auto-contrast(var(--alternative));
             }
             &:active {
               outline: inherit;
@@ -340,7 +340,7 @@
         position: absolute;
         left: 0;
         top: 100%;
-        background: color-mix(rgba(17, 18, 19, 0.9) 40%, var(--c-4));
+        background: color-mix(var(--main) 40%, var(--main));
         padding: 1rem;
       }
       .mega-menu {
@@ -412,7 +412,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    border-top: 3px solid var(--c-4);
+    border-top: 3px solid var(--main);
     #{$g}__inner {
       @include container();
       padding: 1rem;
@@ -434,7 +434,7 @@
   }
 
   &__breadcrumbs {
-    background: color-mix(rgba(17, 18, 19, 0.9) 80%, var(--c-4));
+    background: color-mix(var(--main) 80%, var(--main));
     #{$g}__inner {
       @include container();
       padding: 1rem;
@@ -453,8 +453,8 @@
   &__mobile-menu-button {
     position: fixed;
     bottom: 2.5%;
-    background: var(--c-1);
-    color: contrast-color(var(--c-1));
+    background: var(--main);
+    color: auto-contrast(var(--main));
     padding: .5rem 1rem .5rem .75rem;
     left: 50%;
     transform: translateX(-50%);
@@ -480,13 +480,13 @@
 
     // Open state
     &[aria-expanded="true"] {
-      background: var(--c-1);
+      background: var(--main);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     // Reduce clickable gap between icon and label
     &:focus-visible {
-      outline: 2px solid contrast-color(var(--c-1));
+      outline: 2px solid auto-contrast(var(--main));
       outline-offset: -3px;
     }
 
@@ -509,7 +509,7 @@
   border: 1px solid tint(2, 15%);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--c-2);
+  background: var(--alternative);
 
   // ── Each option ──────────────────────────────────────
   &__option {
@@ -519,7 +519,7 @@
     padding: 0.4rem 0.65rem;
     border: none;
     background: transparent;
-    color: contrast-color(var(--c-2));
+    color: auto-contrast(var(--alternative));
     cursor: pointer;
     font-size: 0.875rem;
     line-height: 1;
@@ -527,8 +527,8 @@
     white-space: nowrap;
 
     &[aria-checked="true"] {
-      background: var(--c-3);
-      color: contrast-color(var(--c-3));
+      background: var(--accent);
+      color: auto-contrast(var(--accent));
     }
 
     &:not(:last-child) {
@@ -536,8 +536,8 @@
     }
 
     &:hover {
-      background: var(--c-3);
-      color: contrast-color(var(--c-3));
+      background: var(--accent);
+      color: auto-contrast(var(--accent));
     }
 
   }
@@ -558,26 +558,26 @@
 
 // Auto / follow system — no data-theme attribute.
 :root:not([data-theme]) .theme-switcher__option[data-value="auto"] {
-  background: var(--c-3);
+  background: var(--accent);
 }
 
 // Explicit dark — highlight "Dark" with inverted colors.
 [data-theme="dark"] .theme-switcher__option[data-value="dark"] {
-  background: var(--c-3);
-  color: contrast-color(var(--c-3));
+  background: var(--accent);
+  color: auto-contrast(var(--accent));
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 2px var(--c-2);
+    box-shadow: inset 0 0 0 2px var(--alternative);
   }
 }
 
 // Explicit light — highlight "Light" with inverted colors.
 [data-theme="light"] .theme-switcher__option[data-value="light"] {
-  background: var(--c-3);
-  color: contrast-color(var(--c-3));
+  background: var(--accent);
+  color: auto-contrast(var(--accent));
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 2px var(--c-2);
+    box-shadow: inset 0 0 0 2px var(--alternative);
   }
 }
 
@@ -595,8 +595,8 @@ body.menu-is-open {
   left: 0.5rem;
   z-index: 10000;
   padding: 0.5rem 1rem;
-  background: var(--c-1);
-  color: contrast-color(var(--c-1));
+  background: var(--main);
+  color: auto-contrast(var(--main));
   text-decoration: none;
   font-weight: 600;
   border-radius: 0 0 4px 4px;

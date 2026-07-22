@@ -25,9 +25,9 @@ html[data-theme=dark] {
 }
 
 :root {
-  --c-1: #{$main-background};
-  --c-2: #{$alternative-background};
-  --c-3: #{$c-3};
-  --c-4: #{$c-4};
+  --main: #{$main};
+  --alternative: #{$alternative};
+  --accent: #{$accent};
+  --buttons: #{$buttons};
   --c-5: #{$c-5};
 }

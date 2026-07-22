@@ -46,7 +46,7 @@ function kb_render_block_hero( array $attributes, string $content = '' ) : strin
 		$cta_text = esc_html( $cta['text'] ?? __( 'Learn more', 'kim-branzell' ) );
 		$cta_url  = esc_url( $cta['url'] ?? '#' );
 		$ctas_html .= sprintf(
-			'<a href="%s" class="hero__cta-button">%s</a>',
+			'<a href="%s" class="hero__cta-button btn">%s</a>',
 			$cta_url,
 			$cta_text
 		);
