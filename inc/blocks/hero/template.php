@@ -13,10 +13,7 @@
 ?>
 <div class="hero hero--<?php echo $size; ?>">
 	<div class="hero__inner">
-		<div class="image-holder">
-			<?php echo $image_html; ?>
-			<div class="image-gradient"></div>
-		</div>
+		<div class="image-holder"><?php if($image_html): ?><?php echo $image_html; ?><div class="image-gradient"></div><?php endif; ?></div>
 		<div class="hero__text-container">
 			<h2><?php echo $title; ?></h2>
 			<div class="hero__lower-text-container">

@@ -29,7 +29,12 @@
 		"enabled": {
 			"type": "boolean",
 			"default": true
+		},
+		"showColumnLabels": {
+			"type": "boolean",
+			"default": true
 		}
 	},
-	"editorScript": "kb-project-index-editor"
+	"editorScript": "kb-project-index-editor",
+	"viewScript": "kb-project-index-view"
 }

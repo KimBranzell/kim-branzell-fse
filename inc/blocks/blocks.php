@@ -99,6 +99,14 @@ function register_blocks() {
 		true
 	);
 
+	wp_register_script(
+		'kb-project-index-view',
+		KB_DIST_URI . '/js/project-index-view.js',
+		array(),
+		kb_asset_version( 'js/project-index-view.js' ),
+		true
+	);
+
 	register_block_type_from_metadata(
 		__DIR__ . '/project-index/block.json',
 		array(

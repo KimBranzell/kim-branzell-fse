@@ -11,23 +11,23 @@
 //
 // ═══════════════════════════════════════════════════════════
 
-$l-color-1: #F6F2F1;
-$l-color-2: #EAE2D3;
-$l-color-3: #AE8F60;
-$l-color-4: #91A673;
-$l-color-5: #3A4A3F;
-$l-color-6: #2A2725;
+$l-color-1: #F2ECE4;
+$l-color-2: #D8CFC2;
+$l-color-3: #A8B59A;
+$l-color-4: #C9A87A;
+$l-color-5: #C47D63;
+$l-color-6: #333333;
 
-$d-color-1: #051914;
-$d-color-2: #125b49;
-$d-color-3: #003527;
-$d-color-4: #aadd66;
-$d-color-5: #eceabe;
-$d-color-6: #fcf6eb;
+$d-color-1: #122215;
+$d-color-2: #333c23;
+$d-color-3: #64572E;
+$d-color-4: #B4772F;
+$d-color-5: #F3B361;
+$d-color-6: #F9CA1C;
 
 // ─── Light/Dark mode palette ───────────────────────────────────
-$main: light-dark($l-color-2, $d-color-1);
-$alternative: light-dark($l-color-1, $d-color-3);
+$main: light-dark($l-color-1, $d-color-1);
+$alternative: light-dark($l-color-2, $d-color-2);
 $accent: light-dark($l-color-4, $d-color-5);
-$buttons: light-dark(#939474, $d-color-4);
-$c-5: light-dark(#292728, #292728);
+$buttons: light-dark($l-color-5, $d-color-6);
+$buttons-hover: light-dark($l-color-6, $d-color-6);

@@ -101,4 +101,8 @@ a.btn {
   color: auto-contrast(var(--buttons));
   min-width: 44px;
   min-height: 44px;
+  &:hover {
+    background: var(--buttons-hover);
+    color: auto-contrast(var(--buttons-hover));
+  }
 }

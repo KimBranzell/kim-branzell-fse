@@ -114,6 +114,21 @@ function kb_register_project_meta() {
 			},
 		)
 	);
+
+	register_post_meta(
+		'project',
+		'kb_project_external_url',
+		array(
+			'type'              => 'string',
+			'single'            => true,
+			'default'           => '',
+			'show_in_rest'      => true,
+			'sanitize_callback' => 'esc_url_raw',
+			'auth_callback'     => function () {
+				return current_user_can( 'edit_posts' );
+			},
+		)
+	);
 }
 add_action( 'init', 'kb_register_project_meta' );
 
@@ -146,9 +161,10 @@ add_action( 'add_meta_boxes', 'kb_project_add_meta_boxes' );
 function kb_project_meta_box_callback( WP_Post $post ) {
 	wp_nonce_field( 'kb_project_meta_save', 'kb_project_meta_nonce' );
 
-	$year   = get_post_meta( $post->ID, 'kb_project_year', true );
-	$sector = get_post_meta( $post->ID, 'kb_project_sector', true );
-	$tags   = get_post_meta( $post->ID, 'kb_project_tags', true );
+	$year         = get_post_meta( $post->ID, 'kb_project_year', true );
+	$sector       = get_post_meta( $post->ID, 'kb_project_sector', true );
+	$tags         = get_post_meta( $post->ID, 'kb_project_tags', true );
+	$external_url = get_post_meta( $post->ID, 'kb_project_external_url', true );
 	?>
 	<p>
 		<label for="kb_project_year"><?php esc_html_e( 'Year', 'kim-branzell' ); ?></label>
@@ -183,6 +199,18 @@ function kb_project_meta_box_callback( WP_Post $post ) {
 			class="widefat"
 		/>
 		<span class="description"><?php esc_html_e( 'Comma-separated.', 'kim-branzell' ); ?></span>
+	</p>
+	<p>
+		<label for="kb_project_external_url"><?php esc_html_e( 'External URL', 'kim-branzell' ); ?></label>
+		<input
+			type="url"
+			id="kb_project_external_url"
+			name="kb_project_external_url"
+			value="<?php echo esc_url( $external_url ?? '' ); ?>"
+			class="widefat"
+			placeholder="<?php esc_attr_e( 'e.g. https://example.com', 'kim-branzell' ); ?>"
+		/>
+		<span class="description"><?php esc_html_e( 'Optional. Overrides the internal permalink in the project index.', 'kim-branzell' ); ?></span>
 	</p>
 	<?php
 }
@@ -220,5 +248,36 @@ function kb_project_save_meta( $post_id ) {
 	if ( isset( $_POST['kb_project_tags'] ) ) {
 		update_post_meta( $post_id, 'kb_project_tags', sanitize_text_field( wp_unslash( $_POST['kb_project_tags'] ) ) );
 	}
+
+	if ( isset( $_POST['kb_project_external_url'] ) ) {
+		update_post_meta( $post_id, 'kb_project_external_url', esc_url_raw( wp_unslash( $_POST['kb_project_external_url'] ) ) );
+	}
 }
 add_action( 'save_post_project', 'kb_project_save_meta' );
+
+/**
+ * Redirect external-project single pages to their external URL.
+ *
+ * If a project has a non-empty kb_project_external_url, anyone
+ * visiting its single-project permalink is 301-redirected to
+ * that external URL instead of seeing the internal detail page.
+ */
+function kb_redirect_external_projects() {
+	if ( ! is_singular( 'project' ) ) {
+		return;
+	}
+
+	$external_url = trim( (string) get_post_meta( get_the_ID(), 'kb_project_external_url', true ) );
+	if ( empty( $external_url ) ) {
+		return;
+	}
+
+	$url = esc_url_raw( $external_url );
+	if ( empty( $url ) ) {
+		return;
+	}
+
+	wp_redirect( $url, 301 );
+	exit;
+}
+add_action( 'template_redirect', 'kb_redirect_external_projects' );

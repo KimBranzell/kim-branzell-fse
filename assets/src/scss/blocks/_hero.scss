@@ -3,7 +3,7 @@
 .hero {
   $g: &;
   background: var(--main);
-  color: auto-contrast(shade(main, 10%));
+  color: auto-contrast(var(--main));
   min-height: 100vh;
   &__inner {
     @include container;
@@ -53,6 +53,13 @@
         font-size: 250%;
       }
     }
+  }
+  .image-holder:empty + .hero__text-container h2,
+  .image-holder:empty + .hero__text-container p {
+    color: auto-contrast(var(--main));
+  }
+  .image-holder:empty + .hero__text-container .hero__lower-text-container {
+    border-top: 1px solid auto-contrast(var(--main));
   }
   &__lower-text-container {
     display: -ms-grid;

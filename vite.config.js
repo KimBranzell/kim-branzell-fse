@@ -66,7 +66,8 @@ export default defineConfig({
         intro: r('./inc/blocks/intro/index.js'),
         faq: r('./inc/blocks/faq/index.js'),
         about: r('./inc/blocks/about/index.js'),
-        'project-index': r('./inc/blocks/project-index/index.js')
+        'project-index': r('./inc/blocks/project-index/index.js'),
+        'project-index-view': r('./inc/blocks/project-index/view.js')
       },
       output: {
         entryFileNames: 'js/[name].js',

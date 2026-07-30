@@ -24,7 +24,7 @@
       max-width: 30px;
 
       path {
-        fill: var(--alternative);
+        fill: var(--buttons);
       }
 
       @include tablet {
@@ -260,9 +260,6 @@
           }
 
           button {
-            background: var(--buttons);
-            width: 44px;
-            height: 44px;
             display: flex;
             align-content: center;
             justify-content: center;
