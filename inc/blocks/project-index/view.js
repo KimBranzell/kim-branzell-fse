@@ -16,7 +16,7 @@
 		return;
 	}
 
-	const buttons = headerRow.querySelectorAll( '.project-index__sort-btn' );
+	const buttons   = headerRow.querySelectorAll( '.project-index__sort-btn' );
 	const announcer = document.querySelector( '.project-index__sort-announcer' );
 
 	/**
@@ -36,7 +36,7 @@
 		if ( key === 'year' ) {
 			const numA = parseInt( rawA, 10 ) || 0;
 			const numB = parseInt( rawB, 10 ) || 0;
-			result = numA - numB;
+			result     = numA - numB;
 		} else {
 			result = rawA.localeCompare( rawB, undefined, { sensitivity: 'base' } );
 		}
@@ -54,24 +54,30 @@
 	function sort( key, asc, label ) {
 		const items = Array.from( list.querySelectorAll( '.project-index__item' ) );
 
-		items.sort( function ( a, b ) {
-			return compare( a, b, key, asc );
-		} );
+		items.sort(
+			function ( a, b ) {
+				return compare( a, b, key, asc );
+			}
+		);
 
 		// Reorder DOM — appendChild on an existing element moves it.
-		items.forEach( function ( item ) {
-			list.appendChild( item );
-		} );
+		items.forEach(
+			function ( item ) {
+				list.appendChild( item );
+			}
+		);
 
 		// Update aria-sort on all buttons.
-		buttons.forEach( function ( btn ) {
-			btn.setAttribute(
-				'aria-sort',
-				btn.getAttribute( 'data-sort-key' ) === key
+		buttons.forEach(
+			function ( btn ) {
+				btn.setAttribute(
+					'aria-sort',
+					btn.getAttribute( 'data-sort-key' ) === key
 					? ( asc ? 'ascending' : 'descending' )
 					: 'none'
-			);
-		} );
+				);
+			}
+		);
 
 		// Announce to screen readers via live region.
 		if ( announcer ) {
@@ -79,24 +85,31 @@
 
 			// Clear first so rapid re-announcements are not dropped by AT.
 			announcer.textContent = '';
-			requestAnimationFrame( function () {
-				announcer.textContent = label + ' — sorterat ' + direction;
-			} );
+			requestAnimationFrame(
+				function () {
+					announcer.textContent = label + ' — sorterat ' + direction;
+				}
+			);
 		}
 	}
 
 	// Bind click handlers on sort buttons.
-	buttons.forEach( function ( btn ) {
-		btn.addEventListener( 'click', function () {
-			const key = btn.getAttribute( 'data-sort-key' );
-			const currentSort = btn.getAttribute( 'aria-sort' );
-			const label = ( btn.textContent || '' ).replace( /\s+/g, ' ' ).trim() || key;
+	buttons.forEach(
+		function ( btn ) {
+			btn.addEventListener(
+				'click',
+				function () {
+					const key         = btn.getAttribute( 'data-sort-key' );
+					const currentSort = btn.getAttribute( 'aria-sort' );
+					const label       = ( btn.textContent || '' ).replace( /\s+/g, ' ' ).trim() || key;
 
-			if ( currentSort === 'ascending' ) {
-				sort( key, false, label );
-			} else {
-				sort( key, true, label );
-			}
-		} );
-	} );
+					if ( currentSort === 'ascending' ) {
+						sort( key, false, label );
+					} else {
+							sort( key, true, label );
+					}
+				}
+			);
+		}
+	);
 } )();

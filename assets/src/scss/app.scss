@@ -16,6 +16,7 @@
 @use '@scss/header/header' as *;
 @use '@scss/components/search' as *;
 @use '@scss/components/project-single' as *;
+@use '@scss/components/footer' as *;
 
 :where(html) {
     hanging-punctuation: first allow-end last;

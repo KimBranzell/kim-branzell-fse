@@ -16,13 +16,13 @@ function kb_render_block_project_index( array $attributes, string $content = '' 
 		return '';
 	}
 
-	$eyebrow             = $attributes['eyebrow'] ?? __( 'Recent engagements', 'kim-branzell' );
-	$heading             = $attributes['heading'] ?? __( 'Project index', 'kim-branzell' );
-	$heading_id          = wp_unique_id( 'project-index-heading-' );
-	$show_count          = (bool) ( $attributes['showCount'] ?? true );
-	$show_column_labels  = (bool) ( $attributes['showColumnLabels'] ?? true );
-	$posts_to_show       = (int) ( $attributes['postsToShow'] ?? 0 );
-	$column_labels       = array(
+	$eyebrow            = $attributes['eyebrow'] ?? __( 'Recent engagements', 'kim-branzell' );
+	$heading            = $attributes['heading'] ?? __( 'Project index', 'kim-branzell' );
+	$heading_id         = wp_unique_id( 'project-index-heading-' );
+	$show_count         = (bool) ( $attributes['showCount'] ?? true );
+	$show_column_labels = (bool) ( $attributes['showColumnLabels'] ?? true );
+	$posts_to_show      = (int) ( $attributes['postsToShow'] ?? 0 );
+	$column_labels      = array(
 		'title'  => __( 'Projekt', 'kim-branzell' ),
 		'sector' => __( 'Sektor', 'kim-branzell' ),
 		'tags'   => __( 'Typ av utveckling', 'kim-branzell' ),
@@ -55,10 +55,10 @@ function kb_render_block_project_index( array $attributes, string $content = '' 
 	// Build row list items — one per published project.
 	$rows_html = '';
 	foreach ( $projects as $project ) {
-		$title_raw         = get_the_title( $project );
-		$sector_raw        = get_post_meta( $project->ID, 'kb_project_sector', true );
-		$tags_raw          = get_post_meta( $project->ID, 'kb_project_tags', true );
-		$year              = absint( get_post_meta( $project->ID, 'kb_project_year', true ) );
+		$title_raw  = get_the_title( $project );
+		$sector_raw = get_post_meta( $project->ID, 'kb_project_sector', true );
+		$tags_raw   = get_post_meta( $project->ID, 'kb_project_tags', true );
+		$year       = absint( get_post_meta( $project->ID, 'kb_project_year', true ) );
 		if ( 0 === $year ) {
 			$year = (int) get_the_date( 'Y', $project );
 		}

@@ -3,6 +3,7 @@
  * Project Index block – template markup.
  *
  * Variables passed from render.php:
+ *
  * @var string $eyebrow              Escaped eyebrow label.
  * @var string $heading              Escaped section heading.
  * @var string $heading_id           Unique id for aria-labelledby.

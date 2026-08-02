@@ -113,7 +113,7 @@
 
     // Hover effect
     &:hover {
-      border-color: color-mix(in oklch, var(--main) 50%, transparent);
+      border-color: var(--accent);
       transition: border-color 0.2s ease;
     }
 

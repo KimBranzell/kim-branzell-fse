@@ -1,0 +1,634 @@
+@use '@scss/base/mixins' as *;
+
+// ═══════════════════════════════════════════════════════════
+// BLOG POSTS BLOCK
+//
+// Two-zone editorial index: lead card grid (sticky + recent
+// with featured images, excerpts, avatars) followed by
+// editorial rows (thumbnail, title, excerpt, meta, arrow).
+// Filterable by category with client-side view.js.
+// All colour derivations use color-mix() so the palette
+// adapts to light/dark mode at runtime.
+// ═══════════════════════════════════════════════════════════
+
+.blog-posts {
+	$g: &;
+
+	--_muted: color-mix(in srgb, contrast-color(var(--main)) 75%, transparent);
+
+	background: var(--main);
+	color: auto-contrast(var(--main));
+	padding: 5rem 0;
+
+	@media ( min-width: 640px ) {
+		padding: 7rem 0;
+	}
+
+	// ─── Inner container ─────────────────────────────────
+	&__inner {
+		@include container;
+	}
+
+	// ─── Header ──────────────────────────────────────────
+	&__header {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid color-mix(in srgb, contrast-color(var(--main)) 20%, transparent);
+	}
+
+	&__header-text {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__eyebrow {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--_muted);
+	}
+
+	&__heading {
+		margin: 0.75rem 0 0;
+		font-size: 2.25rem;
+		font-weight: 500;
+		letter-spacing: -0.025em;
+
+		@media ( min-width: 640px ) {
+			font-size: 3rem;
+		}
+	}
+
+	&__count {
+		font-size: 1.125rem;
+		color: var(--_muted);
+	}
+
+	// ─── Filter chips ────────────────────────────────────
+	&__filter {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 1.25rem 0;
+		border-bottom: 1px solid color-mix(in srgb, contrast-color(var(--main)) 15%, transparent);
+	}
+
+	&__filter-chip {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.25rem 0.75rem;
+		background: none;
+		border: none;
+		font: inherit;
+		font-size: 0.8125rem;
+		color: var(--_muted);
+		cursor: pointer;
+		border-radius: 4px;
+		transition: color 0.2s ease, background 0.2s ease;
+
+		&:hover {
+			color: auto-contrast(var(--main));
+			background: color-mix(in srgb, contrast-color(var(--main)) 8%, transparent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+
+		// Active / pressed state
+		&[aria-pressed="true"] {
+			color: auto-contrast(var(--main));
+			background: color-mix(in srgb, contrast-color(var(--main)) 12%, transparent);
+			font-weight: 600;
+		}
+	}
+
+	// ═══════════════════════════════════════════════════════
+	// LEAD ZONE — responsive card grid
+	// ═══════════════════════════════════════════════════════
+
+	&__lead {
+		display: grid;
+		gap: 2rem;
+		grid-template-columns: 1fr;
+		margin-bottom: 3rem;
+
+		@media ( min-width: 640px ) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media ( min-width: 1024px ) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	// ─── Card ─────────────────────────────────────────────
+	&__card {
+		display: flex;
+		flex-direction: column;
+		background: color-mix(in srgb, contrast-color(var(--main)) 4%, transparent);
+		border: 1px solid color-mix(in srgb, contrast-color(var(--main)) 12%, transparent);
+		border-radius: 6px;
+		overflow: hidden;
+		transition: border-color 0.2s ease;
+
+		&:hover {
+			border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+		}
+	}
+
+	// Whole-card link — single click target (no stretched-link).
+	&__card-link {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		color: inherit;
+		text-decoration: none;
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: -2px;
+			border-radius: 6px;
+		}
+	}
+
+	// ─── Card media ───────────────────────────────────────
+	&__card-media {
+		aspect-ratio: 16 / 9;
+		background: color-mix(in srgb, contrast-color(var(--main)) 8%, transparent);
+		overflow: hidden;
+		position: relative;
+	}
+
+	&__card-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	// Placeholder for cards without an image.
+	&__placeholder--lead {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		color: var(--_muted);
+		background: color-mix(in srgb, var(--accent) 10%, transparent);
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	// Pinned badge (sticky post).
+	&__pinned {
+		position: absolute;
+		top: 0.75rem;
+		left: 0.75rem;
+		background: var(--accent);
+		color: auto-contrast(var(--accent));
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 999px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+	}
+
+	&__pinned-icon {
+		width: 0.7rem;
+		height: 0.7rem;
+	}
+
+	// ─── Card body ────────────────────────────────────────
+	&__card-body {
+		padding: 1.25rem 1.5rem 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		flex: 1;
+	}
+
+	&__card-cat {
+		margin: 0;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--_muted);
+	}
+
+	&__card-title {
+		margin: 0;
+		font-size: 1.375rem;
+		line-height: 1.25;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+
+		@media ( min-width: 640px ) {
+			font-size: 1.5rem;
+		}
+	}
+
+	#{$g}__card:hover &__card-title {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	&__card-excerpt {
+		margin: 0;
+		color: var(--_muted);
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	// ─── Card meta (date · reading · comments) ────────────
+	&__card-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		align-items: center;
+		font-size: 0.8125rem;
+		color: var(--_muted);
+	}
+
+	// ─── Card author ──────────────────────────────────────
+	&__card-author {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: auto;
+	}
+
+	&__avatar {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 999px;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+
+	&__avatar--initials {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: color-mix(in srgb, contrast-color(var(--main)) 12%, transparent);
+		color: auto-contrast(var(--main));
+		font-size: 0.8125rem;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	&__card-author-name {
+		font-size: 0.875rem;
+		color: var(--_muted);
+	}
+
+	// ─── Card read more ───────────────────────────────────
+	&__card-readmore {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--accent);
+		margin-top: 0.5rem;
+		transition: gap 0.2s ease;
+	}
+
+	&__card-readmore-icon {
+		flex-shrink: 0;
+		width: 0.875rem;
+		height: 0.875rem;
+	}
+
+	#{$g}__card:hover &__card-readmore {
+		gap: 0.5rem;
+	}
+
+	// ═══════════════════════════════════════════════════════
+	// LIST ZONE — editorial rows
+	// ═══════════════════════════════════════════════════════
+
+	&__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	// Row dividers (15% contrast of section text).
+	&__item + &__item {
+		border-top: 1px solid color-mix(in srgb, contrast-color(var(--main)) 15%, transparent);
+	}
+
+	// ─── Link row ───────────────────────────────────────
+	&__link {
+		display: grid;
+		// Mobile: single column, stacks vertically.
+		grid-template-columns: 1fr;
+		align-items: center;
+		gap: 0.25rem 1rem;
+		min-height: 4rem;
+		padding: 1rem 0;
+		font-size: 0.875rem;
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s ease;
+
+		@media ( min-width: 640px ) {
+			// Desktop: thumb | date | title-block | arrow.
+			grid-template-columns: auto auto 1fr auto;
+			gap: 0.5rem 1rem;
+		}
+
+		&:hover {
+			color: var(--accent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: -2px;
+		}
+	}
+
+	// ─── Row thumbnail ──────────────────────────────────
+	&__thumb {
+		width: 4rem;
+		height: 4rem;
+		object-fit: cover;
+		border-radius: 4px;
+		flex-shrink: 0;
+
+		@media ( max-width: 639px ) {
+			display: none;
+		}
+	}
+
+	// Empty spacer for rows without a thumbnail.
+	&__thumb--empty {
+		background: color-mix(in srgb, contrast-color(var(--main)) 8%, transparent);
+	}
+
+	// ─── Date ───────────────────────────────────────────
+	&__date {
+		color: var(--_muted);
+		font-size: 0.75rem;
+		font-feature-settings: 'tnum' 1;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		transition: color 0.2s ease;
+
+		@media ( min-width: 640px ) {
+			font-size: 0.8125rem;
+		}
+	}
+
+	&__link:hover &__date {
+		color: var(--accent);
+	}
+
+	// ─── Title wrap (contains title + excerpt + meta) ────
+	&__title-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		min-width: 0; // Allows truncation inside grid.
+	}
+
+	// ─── Title ──────────────────────────────────────────
+	&__title {
+		margin: 0;
+		font-size: 160%;
+		font-weight: 500;
+		color: inherit;
+	}
+
+	&__link:hover &__title,
+	&__link:focus-visible &__title {
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.25em;
+	}
+
+	// ─── Row excerpt (one-line) ─────────────────────────
+	&__excerpt {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--_muted);
+		line-height: 1.4;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	// ─── Meta line ──────────────────────────────────────
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		align-items: center;
+		font-size: 0.8125rem;
+		color: var(--_muted);
+		transition: color 0.2s ease;
+	}
+
+	&__meta-sep {
+		color: var(--_muted);
+		font-size: 0.75rem;
+	}
+
+	&__link:hover &__meta,
+	&__link:hover &__meta-sep {
+		color: var(--accent);
+	}
+
+	// ─── Link icon ───────────────────────────────────────
+	&__link-icon {
+		flex-shrink: 0;
+		width: 1rem;
+		height: 1rem;
+		color: var(--_muted);
+		transition: color 0.2s ease;
+
+		@media ( max-width: 639px ) {
+			display: none;
+		}
+	}
+
+	&__link:hover &__link-icon {
+		color: var(--accent);
+	}
+
+	// ═══════════════════════════════════════════════════════
+	// VIEW ALL FOOTER LINK
+	// ═══════════════════════════════════════════════════════
+
+	&__view-all {
+		display: flex;
+		justify-content: flex-end;
+		padding-top: 2rem;
+		margin-top: 2rem;
+		border-top: 1px solid color-mix(in srgb, contrast-color(var(--main)) 15%, transparent);
+	}
+
+	&__view-all-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: var(--accent);
+		text-decoration: none;
+		transition: gap 0.2s ease;
+
+		&:hover {
+			text-decoration: underline;
+			text-underline-offset: 0.15em;
+			gap: 0.75rem;
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: 2px;
+		}
+	}
+
+	&__view-all-icon {
+		flex-shrink: 0;
+		width: 1rem;
+		height: 1rem;
+	}
+
+	// ═══════════════════════════════════════════════════════
+	// EMPTY / LIVE ANNOUNCER
+	// ═══════════════════════════════════════════════════════
+
+	&__empty {
+		display: none;
+		text-align: center;
+		padding: 3rem 1rem;
+		color: var(--_muted);
+		font-size: 1rem;
+
+		&[aria-hidden="false"] {
+			display: block;
+		}
+	}
+
+	&__filter-announcer {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	// ═══════════════════════════════════════════════════
+	// ENTRANCE ANIMATION
+	// Staggered rise-in reveals — only when user has
+	// not requested reduced motion.
+	// ═══════════════════════════════════════════════════
+	@media ( prefers-reduced-motion: no-preference ) {
+		&__card {
+			animation: kb-blog-rise-large 0.5s ease both;
+			animation-delay: calc( var( --i, 0 ) * 60ms );
+		}
+
+		&__item {
+			animation: kb-blog-rise 0.5s ease both;
+			animation-delay: calc( var( --i, 0 ) * 60ms );
+		}
+	}
+}
+
+// ─── Keyframes: subtle rise + fade ────────────────────────
+@keyframes kb-blog-rise {
+	from {
+		opacity: 0;
+		transform: translateY( 8px );
+	}
+	to {
+		opacity: 1;
+		transform: translateY( 0 );
+	}
+}
+
+@keyframes kb-blog-rise-large {
+	from {
+		opacity: 0;
+		transform: translateY( 16px );
+	}
+	to {
+		opacity: 1;
+		transform: translateY( 0 );
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// REDUCED MOTION
+// ═══════════════════════════════════════════════════════════
+
+@media ( prefers-reduced-motion: reduce ) {
+	.blog-posts {
+		&__card {
+			transition: none;
+		}
+
+		&__card-link,
+		&__card-readmore,
+		&__view-all-link {
+			transition: none;
+		}
+
+		&__link {
+			transition: none;
+		}
+
+		&__date,
+		&__meta,
+		&__meta-sep,
+		&__link-icon {
+			transition: none;
+		}
+
+		&__filter-chip {
+			transition: none;
+		}
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// FORCED COLORS
+// ═══════════════════════════════════════════════════════════
+
+@media ( forced-colors: active ) {
+	.blog-posts {
+		&__filter-chip:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+
+		&__link:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: -2px;
+		}
+
+		&__card-link:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: -2px;
+		}
+
+		&__view-all-link:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+	}
+}

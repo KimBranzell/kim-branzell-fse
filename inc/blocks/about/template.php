@@ -3,6 +3,7 @@
  * About block – template.
  *
  * Variables passed from render.php:
+ *
  * @var array  $eyebrow       { sectionLabel, year }
  * @var string $portrait_html  Full <img> output or empty string.
  * @var string $items_html    Bento item divs HTML.

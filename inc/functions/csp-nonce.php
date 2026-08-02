@@ -78,7 +78,10 @@ if ( ! is_admin() || wp_doing_ajax() ) {
 	// generating them via WP_HTML_Tag_Processor with no filter. The only
 	// reliable approach is to buffer the entire page and inject nonces
 	// into every <style> tag at the end of the request.
-	add_action( 'template_redirect', function () {
-		ob_start( 'kb_inject_style_nonces' );
-	} );
+	add_action(
+		'template_redirect',
+		function () {
+			ob_start( 'kb_inject_style_nonces' );
+		}
+	);
 }

@@ -1,0 +1,361 @@
+// ═══════════════════════════════════════════════════════════
+// SITE FOOTER
+// ═══════════════════════════════════════════════════════════
+// Merged B+C layout:
+//   Upper tier — editorial brand statement (C) + multi-column
+//   nav/contact/social (B), over a slim legal ribbon.
+//   Palette: var(--main) background, auto-contrast foreground.
+// ═══════════════════════════════════════════════════════════
+
+@use '@scss/base/mixins' as *;
+
+.site-footer {
+	background: var(--main);
+	color: auto-contrast(var(--main));
+	padding: 5rem 0 2rem;
+
+	@media ( min-width: 640px ) {
+		padding: 7rem 0 2.5rem;
+	}
+
+	// ── Container ────────────────────────────────────────────
+	&__inner {
+		@include container;
+	}
+
+	// ── Upper tier grid ──────────────────────────────────────
+	&__top {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 3rem;
+
+		@include desktop {
+			grid-template-columns: 2fr 1fr 1fr;
+		}
+	}
+
+	// ── Brand column ─────────────────────────────────────────
+	&__brand-link {
+		display: inline-flex;
+		align-items: flex-end;
+		gap: clamp(0.75rem, 2vw, 1.5rem);
+		text-decoration: none;
+		color: auto-contrast(var(--main));
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	&__logo {
+		height: clamp(2.5rem, 4vw, 3.5rem);
+		width: auto;
+		display: block;
+		flex-shrink: 0;
+	}
+
+	&__brand-link span {
+		font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+		font-size: 150%;
+		font-weight: 500;
+	}
+
+	&__tagline {
+		margin: 1.5rem 0 0;
+		max-width: 38ch;
+		line-height: 1.6;
+		font-size: 1.0625rem;
+	}
+
+	// ── Social icons list ────────────────────────────────────
+	&__social {
+		display: flex;
+		flex-flow: row wrap;
+		gap: 0.5rem;
+		list-style: none;
+		margin: 1.75rem 0 0;
+		padding: 0;
+	}
+
+	&__social-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		border: 1px solid color-mix(in oklch, auto-contrast(var(--main)) 25%, transparent);
+		color: auto-contrast(var(--main));
+		text-decoration: none;
+		transition: background-color 0.25s ease, color 0.25s ease;
+
+		&:hover {
+			background: var(--accent);
+			color: auto-contrast(var(--accent));
+			border-color: var(--accent);
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+			outline-offset: -2px;
+		}
+	}
+
+	&__social-icon {
+		width: 20px;
+		height: 20px;
+		display: block;
+	}
+
+	// ── Column headings (h3, shared by nav / contact / newsletter) ─
+	&__heading {
+		font-size: 0.875rem;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin: 0 0 1.25rem;
+		// Muted but ≥ 4.5:1 — keep at least 75% opaque.
+		color: color-mix(in srgb, auto-contrast(var(--main)) 78%, transparent);
+	}
+
+	// ── Navigation ───────────────────────────────────────────
+	&__nav-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		a {
+			text-decoration: underline;
+			text-underline-offset: 0.15em;
+			text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent);
+			color: auto-contrast(var(--main));
+
+			&:hover {
+				color: var(--accent);
+				text-decoration-color: var(--accent);
+			}
+
+			&:focus-visible {
+				@include focus-ring;
+			}
+
+			// Current page indicator (wp_nav_menu adds aria-current automatically).
+			&[aria-current="page"] {
+				color: var(--accent);
+				font-weight: 600;
+				text-decoration-color: var(--accent);
+			}
+		}
+	}
+
+	// ── Contact list ─────────────────────────────────────────
+	&__contact-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	&__contact-link {
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+		text-decoration-color: color-mix(in srgb, var(--accent) 50%, transparent);
+		color: auto-contrast(var(--main));
+
+		&:hover {
+			color: var(--accent);
+			text-decoration-color: var(--accent);
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	&__location {
+		color: color-mix(in srgb, auto-contrast(var(--main)) 82%, transparent);
+	}
+
+	// ── Newsletter block (hidden by default, toggled via ACF) ─
+	&__newsletter {
+		border-top: 1px solid color-mix(in oklch, auto-contrast(var(--main)) 15%, transparent);
+		margin-top: 1.5rem;
+		padding-top: 1.5rem;
+	}
+
+	&__newsletter-text {
+		margin: 0 0 1rem;
+		line-height: 1.6;
+	}
+
+	&__newsletter-stub {
+		margin: 0;
+		font-style: italic;
+		color: color-mix(in srgb, auto-contrast(var(--main)) 75%, transparent);
+	}
+
+	// ── Bottom tier (legal ribbon) ───────────────────────────
+	&__bottom {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid color-mix(in oklch, auto-contrast(var(--main)) 15%, transparent);
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem 2rem;
+		align-items: center;
+		justify-content: space-between;
+
+		@include smartphone {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	&__copyright {
+		margin: 0;
+		font-size: 0.8125rem;
+		color: color-mix(in srgb, auto-contrast(var(--main)) 78%, transparent);
+	}
+
+	// Group legal links + colophon together so they can sit between copyright and utilities.
+	&__bottom-group {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1.25rem;
+		flex: 1;
+		justify-content: center;
+
+		@include smartphone {
+			justify-content: flex-start;
+		}
+	}
+
+	// ── Legal links ──────────────────────────────────────────
+	&__legal {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+
+		a {
+			font-size: 0.8125rem;
+			text-decoration: underline;
+			text-underline-offset: 0.15em;
+			color: auto-contrast(var(--main));
+			text-decoration-color: color-mix(in srgb, auto-contrast(var(--main)) 50%, transparent);
+
+			&:hover {
+				color: var(--accent);
+			}
+
+			&:focus-visible {
+				@include focus-ring;
+			}
+		}
+	}
+
+	// ── Colophon ─────────────────────────────────────────────
+	&__colophon {
+		margin: 0;
+		font-size: 0.8125rem;
+		color: color-mix(in srgb, auto-contrast(var(--main)) 78%, transparent);
+	}
+
+	// ── Utilities (back-to-top + theme switcher) ─────────────
+	&__utilities {
+		display: inline-flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	// ── Back-to-top link ─────────────────────────────────────
+	&__back-to-top {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		min-height: 44px;
+		padding: 0.5rem 0.75rem;
+		text-decoration: none;
+		color: auto-contrast(var(--main));
+		font-size: 0.875rem;
+		background: transparent;
+		border: 1px solid color-mix(in oklch, auto-contrast(var(--main)) 25%, transparent);
+		border-radius: 6px;
+
+		&:hover {
+			background: var(--accent);
+			color: auto-contrast(var(--accent));
+			border-color: var(--accent);
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	&__back-to-top-icon {
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// REDUCED MOTION (vestibular a11y)
+// ═══════════════════════════════════════════════════════════
+// Fixes the existing gap in app.scss where scroll-behavior: smooth
+// is set unconditionally on :where(html). This rule loads later in
+// the cascade (footer is @use'd after the :where(html) block in
+// app.scss) and wins for users with reduced-motion preference.
+
+@media ( prefers-reduced-motion: reduce ) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.site-footer {
+		&__social-link {
+			transition: none;
+		}
+
+		&__back-to-top {
+			transition: none;
+		}
+	}
+}
+
+// ═══════════════════════════════════════════════════════════
+// FORCED COLORS (high-contrast mode)
+// ═══════════════════════════════════════════════════════════
+
+@media ( forced-colors: active ) {
+	.site-footer {
+		&__social-link:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+
+		&__back-to-top:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+
+		&__nav-list a:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+
+		&__legal a:focus-visible {
+			outline: 2px solid ButtonText;
+			outline-offset: 2px;
+		}
+	}
+}

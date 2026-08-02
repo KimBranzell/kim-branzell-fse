@@ -1,6 +1,6 @@
 <?php
 require_once get_theme_file_path( 'inc/functions/csp-nonce.php' );
-require_once get_theme_file_path( 'inc/functions/headers.php');
+require_once get_theme_file_path( 'inc/functions/headers.php' );
 require_once get_theme_file_path( 'inc/functions/cleanup.php' );
 
 define( 'KB_VERSION', '0.1.1' );
@@ -9,22 +9,25 @@ define( 'KB_DIST_URI', get_theme_file_uri( 'assets/dist' ) );
 
 add_action( 'after_setup_theme', 'kb_after_setup_theme' );
 add_action( 'enqueue_block_assets', 'kb_enqueue_frontend_assets' );
-add_action( 'enqueue_block_assets', 'kb_enqueue_mobilemenu_assets');
+add_action( 'enqueue_block_assets', 'kb_enqueue_mobilemenu_assets' );
 add_action( 'enqueue_block_editor_assets', 'kb_enqueue_editor_assets' );
 add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 
-function kb_after_setup_theme() : void {
+function kb_after_setup_theme(): void {
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'title-tag' );
 	add_editor_style( 'assets/dist/css/editor.css' );
 
-	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'kim-branzell' ),
-		'footer_menu'  => __( 'Footer Menu', 'kim-branzell' ),
-	) );
+	add_image_size( 'kb-blog-lead', 1200, 675, true );
 
+	register_nav_menus(
+		array(
+			'primary'     => __( 'Primary Menu', 'kim-branzell' ),
+			'footer_menu' => __( 'Footer Menu', 'kim-branzell' ),
+		)
+	);
 }
 
 /**
@@ -36,7 +39,7 @@ function kb_after_setup_theme() : void {
  * @param array $parts The document title parts.
  * @return array Modified title parts.
  */
-function kb_search_document_title( array $parts ) : array {
+function kb_search_document_title( array $parts ): array {
 	if ( is_search() ) {
 		$parts['title'] = sprintf(
 			/* translators: %s: Search query. */
@@ -49,27 +52,35 @@ function kb_search_document_title( array $parts ) : array {
 add_filter( 'document_title_parts', 'kb_search_document_title' );
 
 // Unregister block-library styles to prevent loading on the frontend.
-add_action( 'wp_enqueue_scripts', function() {
-	wp_dequeue_style( 'wp-block-library' );
-	wp_dequeue_style( 'wp-block-library-theme' );
-} );
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		wp_dequeue_style( 'wp-block-library' );
+		wp_dequeue_style( 'wp-block-library-theme' );
+	}
+);
 
 // Unregister block-supports styles to prevent loading on the frontend.
-add_action( 'enqueue_block_assets', function() {
-	wp_dequeue_style( 'wp-block-supports' );
-} );
+add_action(
+	'enqueue_block_assets',
+	function () {
+		wp_dequeue_style( 'wp-block-supports' );
+	}
+);
 
 require_once get_theme_file_path( 'inc/functions/enqueues.php' );
 require_once get_theme_file_path( 'inc/functions/filters.php' );
 require_once get_theme_file_path( 'inc/functions/site-menu.php' );
 require_once get_theme_file_path( 'inc/functions/cpt.php' );
 require_once get_theme_file_path( 'inc/functions/cpt-project.php' );
+require_once get_theme_file_path( 'inc/functions/footer-options.php' );
+require_once get_theme_file_path( 'inc/functions/footer-render.php' );
 require_once get_theme_file_path( 'inc/blocks/blocks.php' );
 require_once get_theme_file_path( 'inc/functions/user-portrait.php' );
 require_once get_theme_file_path( 'inc/functions/og-image.php' );
 require_once get_theme_file_path( 'inc/functions/ogpreview-rest.php' );
 
-function kb_get_manifest() : array {
+function kb_get_manifest(): array {
 	static $manifest = null;
 
 	if ( null !== $manifest ) {
@@ -87,7 +98,7 @@ function kb_get_manifest() : array {
 	return $manifest = is_array( $data ) ? $data : array();
 }
 
-function kb_asset_version( string $relative_path ) : string {
+function kb_asset_version( string $relative_path ): string {
 	$file = KB_DIST_PATH . '/' . ltrim( $relative_path, '/' );
 	return file_exists( $file ) ? (string) filemtime( $file ) : KB_VERSION;
 }
@@ -102,7 +113,7 @@ function kb_asset_version( string $relative_path ) : string {
  * @param array $vars Query vars.
  * @return array
  */
-function kb_register_og_image_query_var( array $vars ) : array {
+function kb_register_og_image_query_var( array $vars ): array {
 	$vars[] = 'og_image';
 	return $vars;
 }

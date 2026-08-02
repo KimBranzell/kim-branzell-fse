@@ -229,7 +229,7 @@
 
 	// ─── Hover accent for meta fields ───────────────────
 	&__link:hover :is( #{$g}__sector, #{$g}__tags, #{$g}__year ) {
-		color: color-mix(in srgb, var(--accent) 70%, transparent);
+		color: var(--accent);
 	}
 
 	&__link:hover &__title,

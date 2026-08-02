@@ -3,6 +3,7 @@
  * Intro block – template.
  *
  * Variables passed from render.php:
+ *
  * @var array  $eyebrow       { sectionLabel, year }
  * @var string $headline
  * @var string $image_html     Full <img> output.

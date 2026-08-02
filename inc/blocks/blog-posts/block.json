@@ -1,0 +1,88 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/blog-posts",
+	"title": "Blog Posts",
+	"category": "design",
+	"icon": "welcome-write-blog",
+	"description": "Editorial index of recent posts. Lead cards up top with images, excerpts, and author avatars; editorial rows below. Filterable by category.",
+	"supports": {
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"enabled": {
+			"type": "boolean",
+			"default": true
+		},
+		"excerptLength": {
+			"type": "integer",
+			"default": 28
+		},
+		"eyebrow": {
+			"type": "string",
+			"default": "From the journal"
+		},
+		"heading": {
+			"type": "string",
+			"default": "Latest writing"
+		},
+		"leadCount": {
+			"type": "integer",
+			"default": 3
+		},
+		"leadImageSize": {
+			"type": "string",
+			"default": "large"
+		},
+		"postsToShow": {
+			"type": "integer",
+			"default": 6
+		},
+		"showAuthor": {
+			"type": "boolean",
+			"default": true
+		},
+		"showAuthorAvatar": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCategory": {
+			"type": "boolean",
+			"default": true
+		},
+		"showComments": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCount": {
+			"type": "boolean",
+			"default": false
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"showReadingTime": {
+			"type": "boolean",
+			"default": true
+		},
+		"showReadMore": {
+			"type": "boolean",
+			"default": true
+		},
+		"showThumbnail": {
+			"type": "boolean",
+			"default": true
+		},
+		"showViewAll": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"editorScript": "kb-blog-posts-editor",
+	"viewScript": "kb-blog-posts-view"
+}

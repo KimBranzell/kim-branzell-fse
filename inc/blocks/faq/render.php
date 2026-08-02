@@ -7,12 +7,12 @@
  *
  * @package Kim_Branzell
  */
-function kb_render_block_faq_section( array $attributes, string $content = '' ) : string {
+function kb_render_block_faq_section( array $attributes, string $content = '' ): string {
 	$section_title    = esc_html( $attributes['sectionTitle'] ?? __( 'Answers to Most Common Questions', 'kim-branzell' ) );
 	$section_subtitle = esc_html( $attributes['sectionSubtitle'] ?? '' );
 	$selected_faqs    = $attributes['selectedFaqs'] ?? array();
 	$cta_text         = esc_html( $attributes['ctaText'] ?? __( "Can't find your answer?", 'kim-branzell' ) );
-	$cta_button_text = esc_html( $attributes['ctaButtonText'] ?? __( 'Get in Touch', 'kim-branzell' ) );
+	$cta_button_text  = esc_html( $attributes['ctaButtonText'] ?? __( 'Get in Touch', 'kim-branzell' ) );
 	$cta_button_url   = esc_url( $attributes['ctaButtonUrl'] ?? '#' );
 
 	// Return early if no FAQs selected.
@@ -25,10 +25,10 @@ function kb_render_block_faq_section( array $attributes, string $content = '' ) 
 
 	$faq_posts = get_posts(
 		array(
-			'post_type'      => 'faq',
-			'post__in'       => $faq_ids,
-			'posts_per_page' => count( $faq_ids ),
-			'orderby'        => 'post__in',
+			'post_type'        => 'faq',
+			'post__in'         => $faq_ids,
+			'posts_per_page'   => count( $faq_ids ),
+			'orderby'          => 'post__in',
 			'suppress_filters' => false,
 		)
 	);
@@ -68,10 +68,10 @@ function kb_render_block_faq_section( array $attributes, string $content = '' ) 
 	// Build FAQ items HTML.
 	$faq_items_html = '';
 	foreach ( $faq_posts as $index => $post ) {
-		$post_id      = $post->ID;
-		$question     = esc_html( $post->post_title );
-		$answer       = wp_kses_post( apply_filters( 'the_content', $post->post_content ) );
-		$is_expanded  = 0 === $index; // First item expanded by default.
+		$post_id       = $post->ID;
+		$question      = esc_html( $post->post_title );
+		$answer        = wp_kses_post( apply_filters( 'the_content', $post->post_content ) );
+		$is_expanded   = 0 === $index; // First item expanded by default.
 		$expanded_attr = $is_expanded ? 'true' : 'false';
 
 		$faq_items_html .= sprintf(

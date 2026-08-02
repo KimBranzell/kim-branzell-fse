@@ -12,32 +12,36 @@
  * Register REST routes.
  */
 function kb_og_preview_register_rest() {
-	register_rest_route( 'kb/v1', '/ogpreview/(?P<post_id>\d+)', array(
+	register_rest_route(
+		'kb/v1',
+		'/ogpreview/(?P<post_id>\d+)',
 		array(
-			'methods'             => WP_REST_Server::READABLE,
-			'callback'           => 'kb_og_preview_get',
-			'permission_callback' => 'kb_og_preview_permission',
-			'args'                => array(
-				'post_id' => array(
-					'validate_callback' => function( $param ) {
-						return is_numeric( $param );
-					},
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => 'kb_og_preview_get',
+				'permission_callback' => 'kb_og_preview_permission',
+				'args'                => array(
+					'post_id' => array(
+						'validate_callback' => function ( $param ) {
+							return is_numeric( $param );
+						},
+					),
 				),
 			),
-		),
-		array(
-			'methods'             => WP_REST_Server::EDITABLE,
-			'callback'           => 'kb_og_preview_regenerate',
-			'permission_callback' => 'kb_og_preview_permission',
-			'args'                => array(
-				'post_id' => array(
-					'validate_callback' => function( $param ) {
-						return is_numeric( $param );
-					},
+			array(
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => 'kb_og_preview_regenerate',
+				'permission_callback' => 'kb_og_preview_permission',
+				'args'                => array(
+					'post_id' => array(
+						'validate_callback' => function ( $param ) {
+							return is_numeric( $param );
+						},
+					),
 				),
 			),
-		),
-	) );
+		)
+	);
 }
 add_action( 'rest_api_init', 'kb_og_preview_register_rest' );
 
@@ -72,18 +76,21 @@ function kb_og_preview_get( $request ) {
 	$portrait    = kb_get_portrait_data( $author_id );
 
 	// Check if image is already cached
-	$cache_path  = kb_og_cache_path( $post_id, $version_url );
-	$is_cached   = file_exists( $cache_path );
+	$cache_path = kb_og_cache_path( $post_id, $version_url );
+	$is_cached  = file_exists( $cache_path );
 
-	return new WP_REST_Response( array(
-		'post_id'         => $post_id,
-		'post_type'       => $post->post_type,
-		'image_url'       => $image_url,
-		'version'         => $version_url,
-		'is_cached'       => $is_cached,
-		'portrait_source' => $portrait['source'],
-		'portrait_url'    => $portrait['url'],
-	), 200 );
+	return new WP_REST_Response(
+		array(
+			'post_id'         => $post_id,
+			'post_type'       => $post->post_type,
+			'image_url'       => $image_url,
+			'version'         => $version_url,
+			'is_cached'       => $is_cached,
+			'portrait_source' => $portrait['source'],
+			'portrait_url'    => $portrait['url'],
+		),
+		200
+	);
 }
 
 /**
@@ -103,12 +110,15 @@ function kb_og_preview_regenerate( $request ) {
 	$new_version = kb_og_bump_version( $post_id );
 	$image_url   = home_url( "/?og_image=1&post_id={$post_id}&v={$new_version}" );
 
-	return new WP_REST_Response( array(
-		'post_id'    => $post_id,
-		'image_url'  => $image_url,
-		'version'    => $new_version,
-		'message'    => 'OG image regenerating in background.',
-	), 200 );
+	return new WP_REST_Response(
+		array(
+			'post_id'   => $post_id,
+			'image_url' => $image_url,
+			'version'   => $new_version,
+			'message'   => 'OG image regenerating in background.',
+		),
+		200
+	);
 }
 
 // ─────────────────────────────────────────────────────────────

@@ -17,14 +17,14 @@ define( 'KB_OG_W', 1200 );
 define( 'KB_OG_H', 630 );
 
 // ── Palette ────────────────────────────────────────────────────
-define( 'KB_OG_BG',       '#F8F9F9' );  // c-2, light bg
-define( 'KB_OG_TEXT',     '#063935' );  // c-4, dark text
-define( 'KB_OG_ACCENT',   '#0c6f67' );  // c-1, teal accent
+define( 'KB_OG_BG', '#F8F9F9' );  // c-2, light bg
+define( 'KB_OG_TEXT', '#063935' );  // c-4, dark text
+define( 'KB_OG_ACCENT', '#0c6f67' );  // c-1, teal accent
 define( 'KB_OG_ACCENT_LIGHT', '#e5eff1' ); // c-3, light tint
 
 // ── Fonts ───────────────────────────────────────────────────────
 define( 'KB_OG_FONT_REGULAR', realpath( __DIR__ . '/../../assets/src/fonts/AtkinsonHyperlegible-Regular.ttf' ) );
-define( 'KB_OG_FONT_BOLD',    realpath( __DIR__ . '/../../assets/src/fonts/AtkinsonHyperlegible-Bold.ttf' ) );
+define( 'KB_OG_FONT_BOLD', realpath( __DIR__ . '/../../assets/src/fonts/AtkinsonHyperlegible-Bold.ttf' ) );
 
 // ── Helpers ────────────────────────────────────────────────────
 
@@ -69,15 +69,18 @@ function kb_og_load_portrait( $url ) {
 	}
 
 	// Remote URL
-	$response = wp_remote_get( $url, array(
-		'timeout'  => 8,
-		'sslverify' => false,
-	) );
+	$response = wp_remote_get(
+		$url,
+		array(
+			'timeout'   => 8,
+			'sslverify' => false,
+		)
+	);
 	if ( is_wp_error( $response ) ) {
 		return false;
 	}
 
-	$body = wp_remote_retrieve_body( $response );
+	$body    = wp_remote_retrieve_body( $response );
 	$tmpfile = get_temp_dir() . 'kb_og_' . uniqid() . '.tmp';
 	if ( file_put_contents( $tmpfile, $body ) === false ) {
 		return false;
@@ -120,11 +123,11 @@ function kb_og_load_from_file( $path ) {
 /**
  * Composite a circular portrait onto the canvas.
  *
- * @param GdImage         $canvas   Target canvas.
- * @param GdImage|false  $portrait Source portrait image.
- * @param int             $cx       Circle center X.
- * @param int             $cy       Circle center Y.
- * @param int             $size     Circle diameter.
+ * @param GdImage       $canvas   Target canvas.
+ * @param GdImage|false $portrait Source portrait image.
+ * @param int           $cx       Circle center X.
+ * @param int           $cy       Circle center Y.
+ * @param int           $size     Circle diameter.
  * @return bool Whether a portrait was composited.
  */
 function kb_og_draw_portrait( $canvas, $portrait, $cx, $cy, $size ) {
@@ -147,9 +150,9 @@ function kb_og_draw_portrait( $canvas, $portrait, $cx, $cy, $size ) {
 	imagefilledellipse( $mask, (int) ( $size / 2 ), (int) ( $size / 2 ), $size, $size, $black );
 
 	// Scale portrait to fill circle
-	$scale = max( $size / $pw, $size / $ph );
-	$sw = (int) ( $pw * $scale );
-	$sh = (int) ( $ph * $scale );
+	$scale  = max( $size / $pw, $size / $ph );
+	$sw     = (int) ( $pw * $scale );
+	$sh     = (int) ( $ph * $scale );
 	$scaled = imagecreatetruecolor( $sw, $sh );
 	imagecopyresampled( $scaled, $portrait, 0, 0, 0, 0, $sw, $sh, $pw, $ph );
 
@@ -204,9 +207,9 @@ function kb_og_draw_initials( $canvas, $cx, $cy, $size, $initials, $bg_hex, $tex
  * @return string[] Lines.
  */
 function kb_og_wrap_text( $text, $max_width, $font_size, $font_file ) {
-	$words  = preg_split( '/\s+/', trim( $text ) );
-	$lines  = array();
-	$cur    = '';
+	$words = preg_split( '/\s+/', trim( $text ) );
+	$lines = array();
+	$cur   = '';
 
 	foreach ( $words as $word ) {
 		$test = $cur === '' ? $word : $cur . ' ' . $word;
@@ -285,7 +288,7 @@ function kb_og_wrap_url( $url, $max_width, $font_size, $font_file ) {
 			// If a single segment is still too wide, hard-wrap it character by character
 			$bbox_seg = imagettfbbox( $font_size, 0, $font_file, $segment );
 			if ( abs( $bbox_seg[2] - $bbox_seg[0] ) > $max_width ) {
-				$chars = preg_split( '//u', $segment, -1, PREG_SPLIT_NO_EMPTY );
+				$chars   = preg_split( '//u', $segment, -1, PREG_SPLIT_NO_EMPTY );
 				$current = '';
 				foreach ( $chars as $char ) {
 					$test2 = $current . $char;
@@ -351,11 +354,11 @@ function kb_og_render_image( $post_id, $title, $post_url, $portrait_url, $author
 		$feat = kb_og_load_portrait( $featured_url );
 		if ( $feat ) {
 			// Scale and crop to fill the featured zone
-			$fw = imagesx( $feat );
-			$fh = imagesy( $feat );
-			$scale = max( $featured_w / $fw, $featured_h / $fh );
-			$sw = (int) ( $fw * $scale );
-			$sh = (int) ( $fh * $scale );
+			$fw     = imagesx( $feat );
+			$fh     = imagesy( $feat );
+			$scale  = max( $featured_w / $fw, $featured_h / $fh );
+			$sw     = (int) ( $fw * $scale );
+			$sh     = (int) ( $fh * $scale );
 			$scaled = imagecreatetruecolor( $sw, $sh );
 			imagecopyresampled( $scaled, $feat, 0, 0, 0, 0, $sw, $sh, $fw, $fh );
 			$ox = (int) max( 0, ( $sw - $featured_w ) / 2 );
@@ -434,7 +437,7 @@ function kb_og_render_image( $post_id, $title, $post_url, $portrait_url, $author
  * @return string Absolute file path.
  */
 function kb_og_cache_path( $post_id, $version ) {
-	$dir = wp_upload_dir();
+	$dir  = wp_upload_dir();
 	$base = $dir['basedir'] . '/og-images';
 	if ( ! file_exists( $base ) ) {
 		wp_mkdir_p( $base );
@@ -473,7 +476,11 @@ function kb_og_get_version( $post_id ) {
 function kb_og_render( $post_id ) {
 	$post = get_post( $post_id );
 	if ( ! $post ) {
-		return array( 'path' => '', 'url' => '', 'version' => 0 );
+		return array(
+			'path'    => '',
+			'url'     => '',
+			'version' => 0,
+		);
 	}
 
 	$title     = get_the_title( $post_id );
@@ -484,8 +491,8 @@ function kb_og_render( $post_id ) {
 	$version   = kb_og_get_version( $post_id );
 
 	// Featured image
-	$featured_id   = get_post_thumbnail_id( $post_id );
-	$featured_url  = $featured_id ? wp_get_attachment_image_url( $featured_id, 'large' ) : null;
+	$featured_id  = get_post_thumbnail_id( $post_id );
+	$featured_url = $featured_id ? wp_get_attachment_image_url( $featured_id, 'large' ) : null;
 
 	$cache_path = kb_og_cache_path( $post_id, $version );
 	if ( file_exists( $cache_path ) ) {

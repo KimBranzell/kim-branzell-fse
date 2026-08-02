@@ -12,31 +12,31 @@ function kb_register_faq_cpt() {
 	$labels = array(
 		'name'                  => _x( 'FAQs', 'Post Type General Name', 'kim-branzell' ),
 		'singular_name'         => _x( 'FAQ', 'Post Type Singular Name', 'kim-branzell' ),
-		'menu_name'            => __( 'FAQs', 'kim-branzell' ),
+		'menu_name'             => __( 'FAQs', 'kim-branzell' ),
 		'name_admin_bar'        => __( 'FAQ', 'kim-branzell' ),
 		'archives'              => __( 'FAQ Archives', 'kim-branzell' ),
-		'attributes'           => __( 'FAQ Attributes', 'kim-branzell' ),
-		'parent_item_colon'    => __( 'Parent FAQ:', 'kim-branzell' ),
-		'all_items'            => __( 'All FAQs', 'kim-branzell' ),
-		'add_new_item'         => __( 'Add New FAQ', 'kim-branzell' ),
-		'add_new'              => __( 'Add New', 'kim-branzell' ),
-		'new_item'             => __( 'New FAQ', 'kim-branzell' ),
-		'edit_item'            => __( 'Edit FAQ', 'kim-branzell' ),
-		'update_item'          => __( 'Update FAQ', 'kim-branzell' ),
-		'view_item'            => __( 'View FAQ', 'kim-branzell' ),
-		'view_items'           => __( 'View FAQs', 'kim-branzell' ),
-		'search_items'         => __( 'Search FAQ', 'kim-branzell' ),
-		'not_found'            => __( 'Not found', 'kim-branzell' ),
-		'not_found_in_trash'   => __( 'Not found in Trash', 'kim-branzell' ),
-		'featured_image'       => __( 'Featured Image', 'kim-branzell' ),
-		'set_featured_image'   => __( 'Set featured image', 'kim-branzell' ),
+		'attributes'            => __( 'FAQ Attributes', 'kim-branzell' ),
+		'parent_item_colon'     => __( 'Parent FAQ:', 'kim-branzell' ),
+		'all_items'             => __( 'All FAQs', 'kim-branzell' ),
+		'add_new_item'          => __( 'Add New FAQ', 'kim-branzell' ),
+		'add_new'               => __( 'Add New', 'kim-branzell' ),
+		'new_item'              => __( 'New FAQ', 'kim-branzell' ),
+		'edit_item'             => __( 'Edit FAQ', 'kim-branzell' ),
+		'update_item'           => __( 'Update FAQ', 'kim-branzell' ),
+		'view_item'             => __( 'View FAQ', 'kim-branzell' ),
+		'view_items'            => __( 'View FAQs', 'kim-branzell' ),
+		'search_items'          => __( 'Search FAQ', 'kim-branzell' ),
+		'not_found'             => __( 'Not found', 'kim-branzell' ),
+		'not_found_in_trash'    => __( 'Not found in Trash', 'kim-branzell' ),
+		'featured_image'        => __( 'Featured Image', 'kim-branzell' ),
+		'set_featured_image'    => __( 'Set featured image', 'kim-branzell' ),
 		'remove_featured_image' => __( 'Remove featured image', 'kim-branzell' ),
-		'use_featured_image'   => __( 'Use as featured image', 'kim-branzell' ),
-		'insert_into_item'     => __( 'Insert into FAQ', 'kim-branzell' ),
+		'use_featured_image'    => __( 'Use as featured image', 'kim-branzell' ),
+		'insert_into_item'      => __( 'Insert into FAQ', 'kim-branzell' ),
 		'uploaded_to_this_item' => __( 'Uploaded to this FAQ', 'kim-branzell' ),
-		'items_list'           => __( 'Items list', 'kim-branzell' ),
+		'items_list'            => __( 'Items list', 'kim-branzell' ),
 		'items_list_navigation' => __( 'Items list navigation', 'kim-branzell' ),
-		'filter_items_list'    => __( 'Filter items list', 'kim-branzell' ),
+		'filter_items_list'     => __( 'Filter items list', 'kim-branzell' ),
 	);
 	$args   = array(
 		'label'               => __( 'FAQ', 'kim-branzell' ),
@@ -144,40 +144,42 @@ function kb_register_acf_field_groups() {
 		return;
 	}
 
-	acf_add_local_field_group( array(
-		'key'                   => 'group_kb_user_portrait',
-		'title'                 => __( 'Profile Portrait', 'kim-branzell' ),
-		'fields'               => array(
-			array(
-				'key'               => 'field_kb_profile_image',
-				'label'             => __( 'Profile Photo', 'kim-branzell' ),
-				'name'              => 'kb_profile_image',
-				'type'              => 'image',
-				'return_format'     => 'array',
-				'preview_size'      => 'medium',
-				'library'           => 'all',
-				'mime_types'        => 'jpg,jpeg,png,webp,avif',
-				'instructions'      => __( 'Profile photo for OG social preview images. Leave empty to use your Gravatar.', 'kim-branzell' ),
-			),
-		),
-		'location'              => array(
-			array(
+	acf_add_local_field_group(
+		array(
+			'key'                   => 'group_kb_user_portrait',
+			'title'                 => __( 'Profile Portrait', 'kim-branzell' ),
+			'fields'                => array(
 				array(
-					'param'    => 'user_form',
-					'operator' => '==',
-					'value'    => 'all',
+					'key'           => 'field_kb_profile_image',
+					'label'         => __( 'Profile Photo', 'kim-branzell' ),
+					'name'          => 'kb_profile_image',
+					'type'          => 'image',
+					'return_format' => 'array',
+					'preview_size'  => 'medium',
+					'library'       => 'all',
+					'mime_types'    => 'jpg,jpeg,png,webp,avif',
+					'instructions'  => __( 'Profile photo for OG social preview images. Leave empty to use your Gravatar.', 'kim-branzell' ),
 				),
 			),
-		),
-		'menu_order'           => 0,
-		'position'             => 'normal',
-		'style'                => 'default',
-		'label_placement'      => 'top',
-		'instruction_placement' => 'field',
-		'hide_on_screen'       => '',
-		'active'               => true,
-		'description'          => '',
-		'show_in_rest'         => 0,
-	) );
+			'location'              => array(
+				array(
+					array(
+						'param'    => 'user_form',
+						'operator' => '==',
+						'value'    => 'all',
+					),
+				),
+			),
+			'menu_order'            => 0,
+			'position'              => 'normal',
+			'style'                 => 'default',
+			'label_placement'       => 'top',
+			'instruction_placement' => 'field',
+			'hide_on_screen'        => '',
+			'active'                => true,
+			'description'           => '',
+			'show_in_rest'          => 0,
+		)
+	);
 }
 add_action( 'acf/init', 'kb_register_acf_field_groups' );

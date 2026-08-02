@@ -4,14 +4,13 @@
  *
  * Attributes are defined in block.json.
  */
-
-function kb_render_block_intro( array $attributes, string $content = '' ) : string {
-	$eyebrow    = $attributes['eyebrow'] ?? array(
+function kb_render_block_intro( array $attributes, string $content = '' ): string {
+	$eyebrow  = $attributes['eyebrow'] ?? array(
 		'sectionLabel' => '01 Introduction',
-		'year'          => gmdate( 'Y' ),
+		'year'         => gmdate( 'Y' ),
 	);
-	$headline   = esc_html( $attributes['headline'] ?? '' );
-	$services   = $attributes['services'] ?? array();
+	$headline = esc_html( $attributes['headline'] ?? '' );
+	$services = $attributes['services'] ?? array();
 
 	// Image handling.
 	$image = $attributes['image'] ?? null;
@@ -23,7 +22,7 @@ function kb_render_block_intro( array $attributes, string $content = '' ) : stri
 			array( 'class' => 'intro__image' )
 		);
 	} elseif ( is_array( $image ) && ! empty( $image['url'] ) ) {
-		$alt = ! empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : '';
+		$alt        = ! empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : '';
 		$image_html = sprintf(
 			'<img src="%s" alt="%s" class="intro__image">',
 			esc_url( $image['url'] ),

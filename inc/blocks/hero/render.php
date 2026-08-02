@@ -4,8 +4,7 @@
  *
  * Attributes are defined in block.json.
  */
-
-function kb_render_block_hero( array $attributes, string $content = '' ) : string {
+function kb_render_block_hero( array $attributes, string $content = '' ): string {
 	$enabled = (bool) ( $attributes['enabled'] ?? true );
 
 	if ( ! $enabled ) {
@@ -30,7 +29,7 @@ function kb_render_block_hero( array $attributes, string $content = '' ) : strin
 		);
 	} elseif ( is_array( $image ) && ! empty( $image['url'] ) ) {
 		// Fallback for external images (no attachment ID).
-		$alt = ! empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : '';
+		$alt        = ! empty( $image['alt'] ) ? esc_attr( $image['alt'] ) : '';
 		$image_html = sprintf(
 			'<img src="%s" alt="%s" class="hero__image">',
 			esc_url( $image['url'] ),
@@ -43,8 +42,8 @@ function kb_render_block_hero( array $attributes, string $content = '' ) : strin
 	// Build CTAs HTML.
 	$ctas_html = '';
 	foreach ( $ctas as $cta ) {
-		$cta_text = esc_html( $cta['text'] ?? __( 'Learn more', 'kim-branzell' ) );
-		$cta_url  = esc_url( $cta['url'] ?? '#' );
+		$cta_text   = esc_html( $cta['text'] ?? __( 'Learn more', 'kim-branzell' ) );
+		$cta_url    = esc_url( $cta['url'] ?? '#' );
 		$ctas_html .= sprintf(
 			'<a href="%s" class="hero__cta-button btn">%s</a>',
 			$cta_url,

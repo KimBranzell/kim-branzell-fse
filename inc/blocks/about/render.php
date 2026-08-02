@@ -4,11 +4,10 @@
  *
  * Attributes are defined in block.json.
  */
-
-function kb_render_block_about( array $attributes, string $content = '' ) : string {
+function kb_render_block_about( array $attributes, string $content = '' ): string {
 	$eyebrow = $attributes['eyebrow'] ?? array(
 		'sectionLabel' => '02 About',
-		'year'          => '',
+		'year'         => '',
 	);
 	$items   = $attributes['items'] ?? array();
 
@@ -22,7 +21,7 @@ function kb_render_block_about( array $attributes, string $content = '' ) : stri
 			array( 'class' => 'about__portrait' )
 		);
 	} elseif ( is_array( $portrait ) && ! empty( $portrait['url'] ) ) {
-		$alt = ! empty( $portrait['alt'] ) ? esc_attr( $portrait['alt'] ) : '';
+		$alt           = ! empty( $portrait['alt'] ) ? esc_attr( $portrait['alt'] ) : '';
 		$portrait_html = sprintf(
 			'<img src="%s" alt="%s" class="about__portrait">',
 			esc_url( $portrait['url'] ),

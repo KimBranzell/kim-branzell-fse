@@ -50,8 +50,8 @@ function kb_get_portrait_url( $user_id = null ) {
  * @return array{ url: string|null, version: int, source: string }
  */
 function kb_get_portrait_data( $user_id = null ) {
-	$url    = kb_get_portrait_url( $user_id );
-	$source = 'none';
+	$url     = kb_get_portrait_url( $user_id );
+	$source  = 'none';
 	$version = 1;
 
 	if ( $user_id ) {

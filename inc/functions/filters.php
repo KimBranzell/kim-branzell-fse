@@ -1,10 +1,9 @@
 <?php
 /**
  * Add assets/svg/defs.svg with defs to the footer, so we can use <use> to reference icons in the header without needing to load multiple SVG files or inline the SVG code multiple times.
- *
  */
-function kb_add_svg_defs() : void {
-  echo '
+function kb_add_svg_defs(): void {
+	echo '
   <svg aria-hidden="true">
     <defs>
       <g id="rss-svg">
