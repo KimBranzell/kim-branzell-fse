@@ -95,16 +95,16 @@
       }
 
       #{$g}__card-icon {
-        border-color: color-mix(in oklch, var(--alternative) 40%, transparent);
-        color: var(--alternative);
+        border-color: color-mix(in oklch, auto-contrast(var(--main)) 40%, transparent);
+        color: auto-contrast(var(--main));
       }
 
       #{$g}__card-description {
-        color: var(--alternative);
+        color: auto-contrast(var(--main));
       }
 
       #{$g}__card-link {
-        color: var(--alternative);
+        color: auto-contrast(var(--main));
       }
     }
   }

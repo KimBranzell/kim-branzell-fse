@@ -141,4 +141,32 @@ function register_blocks() {
 			'render_callback' => 'kb_render_block_blog_posts',
 		)
 	);
+
+	// ──────────────────────────────────────────────
+	// Testimonial block
+	// ──────────────────────────────────────────────
+	require_once __DIR__ . '/testimonial/render.php';
+
+	wp_register_script(
+		'kb-testimonial-editor',
+		KB_DIST_URI . '/js/testimonial.js',
+		array( 'wp-blocks', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-element', 'wp-server-side-render' ),
+		kb_asset_version( 'js/testimonial.js' ),
+		true
+	);
+
+	wp_register_script(
+		'kb-testimonial-view',
+		KB_DIST_URI . '/js/testimonial-view.js',
+		array(),
+		kb_asset_version( 'js/testimonial-view.js' ),
+		true
+	);
+
+	register_block_type_from_metadata(
+		__DIR__ . '/testimonial/block.json',
+		array(
+			'render_callback' => 'kb_render_block_testimonial',
+		)
+	);
 }

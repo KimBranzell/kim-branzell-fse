@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "kim-branzell/testimonial",
+	"title": "Testimonial",
+	"category": "design",
+	"icon": "format-quote",
+	"description": "A full-bleed testimonial carousel with a pull quote, attribution, optional portrait, and palette-aware background.",
+	"supports": {
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"enabled": {
+			"type": "boolean",
+			"default": true
+		},
+		"background": {
+			"type": "string",
+			"enum": [ "main", "alternative", "accent", "buttons" ],
+			"default": "buttons"
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"interval": {
+			"type": "integer",
+			"default": 6000
+		},
+		"testimonials": {
+			"type": "array",
+			"default": [
+				{
+					"id": "default",
+					"quote": "Northline gave us more than a new identity. They gave our whole organization a clearer way to make decisions.",
+					"authorName": "Mara Chen",
+					"authorRole": "Chief Growth Officer, Oriole Works",
+					"portrait": null
+				}
+			]
+		}
+	},
+	"editorScript": "kb-testimonial-editor",
+	"viewScript": "kb-testimonial-view"
+}

@@ -1,0 +1,335 @@
+@use '@scss/base/mixins' as *;
+
+// ═══════════════════════════════════════════════════════════
+// TESTIMONIAL BLOCK
+//
+// Full-bleed testimonial carousel with palette-aware
+// background, large decorative quote glyph, pull quote,
+// attribution with optional portrait, and dot/prev/next
+// navigation. All colour derivations use color-mix() +
+// auto-contrast() so light/dark mode adapt at runtime.
+// ═══════════════════════════════════════════════════════════
+
+.testimonial {
+	$g: &;
+
+	--_muted: color-mix(in srgb, currentColor 70%, transparent);
+
+	padding: 5rem 0;
+
+	@media ( min-width: 640px ) {
+		padding: 7rem 0;
+	}
+
+	// ─── Background modifiers ─────────────────────────────
+	// auto-contrast() is the single source for text color.
+	// Do NOT override it to chase a "dark text on coral"
+	// reference screenshot — the palette is retuned for AA.
+	// Light mode: white-on-coral. Dark mode: dark-on-yellow.
+
+	&--main {
+		background: var(--main);
+		color: auto-contrast(var(--main));
+	}
+
+	&--alternative {
+		background: var(--alternative);
+		color: auto-contrast(var(--alternative));
+	}
+
+	&--accent {
+		background: var(--accent);
+		color: auto-contrast(var(--accent));
+	}
+
+	&--buttons {
+		background: var(--buttons);
+		color: auto-contrast(var(--buttons));
+	}
+
+	// ─── Inner container ──────────────────────────────────
+	&__inner {
+		@include container;
+		position: relative;
+	}
+
+	// ─── Viewport (scrollable region) ─────────────────────
+	&__viewport {
+		overflow: hidden;
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	// ─── Track (animated flex row) ────────────────────────
+	&__track {
+		display: flex;
+		flex-wrap: nowrap;
+		transition: transform 0.45s ease;
+		will-change: transform;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	// ─── Individual slide ─────────────────────────────────
+	&__slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		position: relative;
+		padding: 1rem 0;
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-columns: (minmax(0, 1fr));
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+
+		&[aria-hidden="true"] {
+			visibility: hidden;
+		}
+
+		// &:only-child — when only one testimonial,
+		// hide controls and remove carousel semantics.
+		// Handled in view.js (controls hidden, no inert).
+	}
+
+	// ─── Decorative quote-mark glyph ──────────────────────
+	&__quote-mark {
+		position: absolute;
+		top: -0.25rem;
+		left: -0.25rem;
+		font-family: 'Atkinson Hyperlegible Next', system-ui, serif;
+		font-size: clamp(6rem, 18vw, 11rem);
+		line-height: 1;
+		opacity: 0.18;
+		color: currentColor;
+		pointer-events: none;
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		    -ms-user-select: none;
+		        user-select: none;
+		font-weight: 700;
+
+		@media ( max-width: 640px ) {
+			font-size: clamp(4rem, 14vw, 6rem);
+			left: 0;
+			top: 0;
+		}
+	}
+
+	&__container {
+		position: relative;
+		left: 20%;
+		-ms-grid-column-span: 8;
+		grid-column: span 8 / span 8;
+	}
+
+	// ─── Quote block ──────────────────────────────────────
+	&__quote {
+		margin: 0;
+		max-width: 100%;
+
+		p {
+			margin: 0;
+			font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+			font-weight: 600;
+			font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+			line-height: 1.2;
+			letter-spacing: -0.02em;
+		}
+	}
+
+	// ─── Horizontal divider ───────────────────────────────
+	&__divider {
+		width: 100%;
+		max-width: 100%;
+		margin: 2rem 0 1.5rem;
+		border: 0;
+		border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+	}
+
+	// ─── Attribution block ────────────────────────────────
+	&__attribution {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin: 0;
+	}
+
+	&__attribution-text {
+		display: flex;
+		flex-direction: column;
+	}
+
+	// ─── Portrait ─────────────────────────────────────────
+	&__avatar-wrap {
+		flex: 0 0 auto;
+		margin: 0;
+	}
+
+	&__avatar {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		-o-object-fit: cover;
+		   object-fit: cover;
+	}
+
+	// ─── Author name + role ───────────────────────────────
+	&__author {
+		display: block;
+		font-weight: 600;
+		font-size: 1.0625rem;
+	}
+
+	&__role {
+		display: block;
+		color: var(--_muted);
+		font-size: 0.9375rem;
+	}
+
+	// ─── Controls row ─────────────────────────────────────
+	&__controls {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: clamp(1.5rem, 4vw, 2.5rem);
+		padding-top: 1.25rem;
+		border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+
+		@media ( max-width: 480px ) {
+			flex-direction: column;
+		}
+	}
+
+	// ─── Prev / Next buttons ──────────────────────────────
+	&__prev,
+	&__next {
+		background: transparent;
+		border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+		width: 2.75rem;
+		height: 2.75rem;
+		border-radius: 50%;
+		display: -ms-grid;
+		display: grid;
+		place-items: center;
+		cursor: pointer;
+		color: inherit;
+		flex-shrink: 0;
+		padding: 0;
+		// Ensure 44×44 px touch target.
+		min-width: 44px;
+		min-height: 44px;
+		transition:
+			background-color 0.2s ease,
+			border-color 0.2s ease;
+
+		&:hover {
+			background: color-mix(in srgb, currentColor 12%, transparent);
+		}
+
+		&:focus-visible {
+			@include focus-ring;
+		}
+	}
+
+	&__nav-icon {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+
+	// ─── Dot tablist ──────────────────────────────────────
+	&__dots {
+		display: inline-flex;
+		gap: 0.5rem;
+	}
+
+	&__dot {
+		position: relative;
+		width: 0.625rem;
+		height: 0.625rem;
+		border-radius: 50%;
+		border: 0;
+		padding: 0;
+		background: color-mix(in srgb, currentColor 30%, transparent);
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			transform 0.2s ease;
+
+		// Expand touch target to 44×44 px via invisible overlay.
+		&::before {
+			content: '';
+			position: absolute;
+			inset: -14px;
+		}
+
+		&[aria-selected="true"] {
+			background: currentColor;
+			transform: scale(1.25);
+		}
+
+		&:hover {
+			background: color-mix(in srgb, currentColor 55%, transparent);
+		}
+
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 2px;
+		}
+	}
+
+	// ─── Live-region announcer ────────────────────────────
+	// Uses WP core .screen-reader-text class — defined in
+	// header.scss (same codebase). No additional rules needed.
+
+	// ─── Reduced motion ───────────────────────────────────
+	@media ( prefers-reduced-motion: reduce ) {
+		&__track {
+			transition: none;
+		}
+
+		&__dot,
+		&__prev,
+		&__next {
+			transition: none;
+		}
+	}
+
+	// ─── Forced colors / High Contrast mode ───────────────
+	@media ( forced-colors: active ) {
+		&__prev,
+		&__next,
+		&__dot {
+			outline: 1px solid ButtonText;
+		}
+
+		&__divider,
+		&__controls {
+			border-color: ButtonText;
+		}
+
+		&__quote-mark {
+			opacity: 1;
+		}
+	}
+}
+
+// ─── sr-only utility ─────────────────────────────────────
+// Duplicated from _about.scss so the block is self-
+// contained. Uses the standard clip technique.
+// Note: the live-region announcer uses WP's .screen-reader-text
+// (defined in header.scss) — not .sr-only.
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

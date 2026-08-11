@@ -69,7 +69,9 @@ export default defineConfig({
         'project-index': r('./inc/blocks/project-index/index.js'),
         'project-index-view': r('./inc/blocks/project-index/view.js'),
         'blog-posts': r('./inc/blocks/blog-posts/index.js'),
-        'blog-posts-view': r('./inc/blocks/blog-posts/view.js')
+        'blog-posts-view': r('./inc/blocks/blog-posts/view.js'),
+        testimonial: r('./inc/blocks/testimonial/index.js'),
+        'testimonial-view': r('./inc/blocks/testimonial/view.js')
       },
       output: {
         entryFileNames: 'js/[name].js',

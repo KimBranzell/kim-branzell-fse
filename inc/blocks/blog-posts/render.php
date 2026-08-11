@@ -386,6 +386,15 @@ function kb_render_block_blog_posts( array $attributes, string $_content = '' ):
 		// ─── Meta line parts ────────────────────────────────────
 		$meta_parts = array();
 
+		// ─── Date cell ──────────────────────────────────────────
+		if ( $show_date ) {
+			$meta_parts[] = sprintf(
+				'<time class="blog-posts__date" datetime="%s">%s</time>',
+				$iso_date,
+				$human_date
+			);
+		}
+
 		if ( $show_author ) {
 			$meta_parts[] = sprintf(
 				'<span class="blog-posts__meta-author">%s</span>',
@@ -428,16 +437,6 @@ function kb_render_block_blog_posts( array $attributes, string $_content = '' ):
 			$meta_html = '<span class="blog-posts__meta">' . implode( ' <span class="blog-posts__meta-sep" aria-hidden="true">·</span> ', $meta_parts ) . '</span>';
 		}
 
-		// ─── Date cell ──────────────────────────────────────────
-		$date_html = '';
-		if ( $show_date ) {
-			$date_html = sprintf(
-				'<time class="blog-posts__date" datetime="%s">%s</time>',
-				$iso_date,
-				$human_date
-			);
-		}
-
 		// Wrap title + excerpt + meta into one column so the grid stays aligned.
 		$title_block = sprintf(
 			'<span class="blog-posts__title-wrap"><h3 class="blog-posts__title">%1$s</h3>%2$s%3$s</span>',
@@ -451,15 +450,13 @@ function kb_render_block_blog_posts( array $attributes, string $_content = '' ):
 			'<li class="blog-posts__item" data-category="%1$s" style="--i: %2$d">' .
 				'<a class="blog-posts__link" href="%3$s">' .
 				'%4$s' . // Thumbnail or spacer.
-				'%5$s' . // Date.
-				'%6$s' . // Title + excerpt + meta.
-				'%7$s' . // Arrow.
+				'%5$s' . // Title + excerpt + meta.
+				'%6$s' . // Arrow.
 			'</a></li>',
 			$data_cats,
 			$row_index,
 			$permalink,
 			$thumb_html,
-			$date_html,
 			$title_block,
 			$arrow_svg
 		);
